@@ -1,5 +1,5 @@
 <?php 
-    if(isset($_SESSION['role']) && $_SESSION['role'] == "admin") {
+    if(checkRole('admin', $_SESSION['name'])) {
         echo '<main class="accaunts">';
         if(!isset($_GET['user'])) {
             ?>

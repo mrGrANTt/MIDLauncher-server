@@ -1,5 +1,5 @@
 <?php 
-    if(isset($_SESSION['role']) && ($_SESSION['role'] == "admin" || $_SESSION['role'] == "moderator")) {
+    if(checkRole(['admin', 'moderator'], $_SESSION['name'])) {
 ?>
 <main class="accaunts">
 

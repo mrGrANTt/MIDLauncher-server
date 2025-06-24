@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use function PHPSTORM_META\type;
+
 function connect(
     $host='localhost',
     $user='MIDLauncher',
@@ -56,5 +59,43 @@ function generate_tablet() {
             die('Tablet generate exception: '.$ex.'<br />');
         }
     }
+}
+
+function checkRole($role, $name) {
+    if(is_array($role)) {
+        foreach($role as $r) {
+            if(checkRole($r, $name)) {
+                return true;
+            }
+        }
+    } else {
+        global $link;
+
+        $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ? AND `role` = ? LIMIT 1;"); // 1';DELETE from `users` WHERE name = '123
+        $sel->bind_param('ss', $name, $role);
+
+        try {
+            $sel->execute();
+        } catch(mysqli_sql_exception $ex) {
+            echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
+            return false;
+        }
+
+        $res = $sel->get_result();
+        $err = $sel->error;
+        if($err != "") {
+            echo $err."<br/>";
+            ?>
+                <p style="color: red;">Some think wrong... Call Administrator!</p>
+            <?php
+        }
+
+        $arr = mysqli_fetch_array($res);
+        
+        if($arr) {
+            return true;
+        }
+    }
+    return false;
 }
 ?>

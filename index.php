@@ -37,19 +37,19 @@
 
             <nav class="nav-links">
                 <?php
-                    if(isset($_SESSION['role'])) {
-                        if($_SESSION['role'] == 'admin') {
+                    if(isset($_SESSION['name'])) {
+                        echo '<a href="?page=account">Account</a>';
+                        echo '<a href="?page=suggest">Suggest</a>';
+                        $adm = checkRole('admin', $_SESSION['name']);
+                        $mod = checkRole('moderator', $_SESSION['name']);
+                        if($adm) {
                             echo '<a href="?page=admin">Admin</a>';
                         }
-                        if($_SESSION['role'] == 'moderator' || $_SESSION['role'] == 'admin') {
+                        if($adm || $mod) {
                             echo '<a href="?page=games">Games</a>';
                         }
-                    }
-                    if(!isset($_SESSION['name'])) {
-                            echo '<a href="?page=login">Login</a>';
                     } else {
-                            echo '<a href="?page=account">Account</a>';
-                            echo '<a href="?page=suggest">Suggest</a>';
+                            echo '<a href="?page=login">Login</a>';
                     }
                 ?>
             </nav>

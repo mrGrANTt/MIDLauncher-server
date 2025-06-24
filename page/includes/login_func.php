@@ -7,7 +7,7 @@ function register($name, $email, $pas) {
     global $link;
 
     $ins = $link->prepare("INSERT into `users`(`name`, `email`, `pass`, `role`) values (?, ?, ?, 'user');");
-    $sel = $link->prepare("SELECT `id`, `role` FROM `users` WHERE `name`= ?;"); // 1';DELETE from `users` WHERE name = '123
+    $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ?;"); // 1';DELETE from `users` WHERE name = '123
     $ins->bind_param('sss', $name, $email, $pas);
     $sel->bind_param('s', $name);
 
@@ -20,7 +20,7 @@ function register($name, $email, $pas) {
             <?php
             return false;
         } else {
-            echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell administration!</p>';
+            echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
             return false;
         }
     }
@@ -28,7 +28,7 @@ function register($name, $email, $pas) {
     try {
         $sel->execute();
     } catch(mysqli_sql_exception $ex) {
-        echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell administration!</p>';
+        echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
         return false;
     }
 
@@ -47,7 +47,6 @@ function register($name, $email, $pas) {
     if($arr) {
         $_SESSION['name'] = $name;
         $_SESSION['id'] = $arr['id'];
-        $_SESSION['role'] = $arr['role'];
         return true;
     }
     return false;
@@ -59,7 +58,7 @@ function login($name, $pas) {
 
     global $link;
 
-    $sel = $link->prepare('SELECT `name`, `id`, `role` FROM `users` WHERE `pass` = ? AND (`name` = ? OR email = ?);');
+    $sel = $link->prepare('SELECT `name`, `id` FROM `users` WHERE `pass` = ? AND (`name` = ? OR email = ?);');
     $sel->bind_param('sss', $pas, $name, $name);
     $err = "";
 
@@ -78,7 +77,6 @@ function login($name, $pas) {
     if($arr) {
         $_SESSION['name'] = $arr['name'];
         $_SESSION['id'] = $arr['id'];
-        $_SESSION['role'] = $arr['role'];
         return true;
     } else {
         ?> 
