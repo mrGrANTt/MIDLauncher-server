@@ -1,0 +1,38 @@
+<?php
+    session_start(); 
+    include_once('database.php');
+    connect();
+    
+    if(isset($_SESSION['role']) && $_SESSION['role'] == "admin") {
+        if(isset($_GET['value'])) {
+            $value = '%'.$_GET['value'].'%';
+
+            global $link;
+            $sel = $link->prepare('SELECT `name` FROM `users` WHERE `name` LIKE ? LIMIT 12;');
+            $sel->bind_param('s', $value);
+            $err = "";
+
+            try {
+                $sel->execute();
+                $res = $sel->get_result(); 
+            } catch(mysqli_sql_exception $ex) {
+                $err = $ex->getMessage();
+            }
+            if($err == "" && $res) {
+                $arr = mysqli_fetch_all($res);
+                if($arr) { 
+                    foreach($arr as $v) {
+                        $str = str_replace($_GET['value'], '<span class="serch_res">'.$_GET['value'].'</span>', $v[0]);
+                        echo '<a href="?page=admin&user='.$v[0].'" class="user_link">'.$str.'<br />';
+                    }
+                    exit;
+                }
+            }
+        }
+        echo "No result";
+    } else {
+        global $mainUrl;
+        header("Location: ".$mainUrl);
+        exit;
+    }
+?>

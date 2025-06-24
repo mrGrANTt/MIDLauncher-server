@@ -1,0 +1,10 @@
+:root {
+    --main-bg: #1e1e2f;
+    --panel-bg: #2c2c3a;
+    --hover-bg: #3a3a4a;
+    --input-focus-bg: #26263a;
+    --accent: #4fa3d1;
+    --accent-hover: #3c8bb8;
+    --text: #f0f0f0;
+    --mini-text: gray;
+}
