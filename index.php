@@ -40,8 +40,8 @@
                     if(isset($_SESSION['name'])) {
                         echo '<a href="?page=account">Account</a>';
                         echo '<a href="?page=suggest">Suggest</a>';
-                        $adm = checkRole('admin', $_SESSION['name']);
-                        $mod = checkRole('moderator', $_SESSION['name']);
+                        $adm = checkRole('admin');
+                        $mod = checkRole('moderator');
                         if($adm) {
                             echo '<a href="?page=admin">Admin</a>';
                         }

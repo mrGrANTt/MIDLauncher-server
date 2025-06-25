@@ -3,7 +3,7 @@
     include_once('database.php');
     connect();
     
-    if(checkRole('admin', $_SESSION['name'])) {
+    if(checkRole('admin')) {
         if(isset($_GET['value'])) {
             $value = '%'.$_GET['value'].'%';
 

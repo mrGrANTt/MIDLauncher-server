@@ -1,5 +1,5 @@
 <?php 
-    if(checkRole('admin', $_SESSION['name'])) {
+    if(checkRole('admin')) {
         echo '<main class="accaunts">';
         if(!isset($_GET['user'])) {
             ?>
@@ -19,6 +19,7 @@
                         xhttp.open("GET", "page/includes/parce_users.php?value=" + el.value, true);
                         xhttp.send();
                     }
+                    loadDoc();
                 </script>
             <?php
         } else {
