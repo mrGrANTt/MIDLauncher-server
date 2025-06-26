@@ -12,7 +12,6 @@
 
                     function loadDoc() {
                         xhttp.onload = function() {
-                            console.log(this.responseText)
                             document.getElementById("result").innerHTML = this.responseText;
                         }
                         el = document.getElementById("search")

@@ -1,5 +1,5 @@
 <?php
-    $onePageCount = 1;
+    $onePageCount = 7;
     $curentPage = 0;
     $maxPageCount = 0;
     $type = isset($_GET['page']) ? 
@@ -34,7 +34,7 @@
 
         $arr = mysqli_fetch_array($res);
         if($arr) {
-            $maxPageCount = intval($arr[0] / $onePageCount);
+            $maxPageCount = ceil($arr[0] / $onePageCount);
         }
 
         $curentPage = max(min($curentPage, $maxPageCount - 1), 0);
@@ -89,8 +89,7 @@
 
         foreach($variants as $var) {
             if($var < $maxPageCount && $var > -1) {
-                echo '<a class="page_switch '.($var == $curentPage ? 'select' : '').'" href="?page='
-                .$type.(isset($_GET['closed']) ? '&closed&' : '&').'count='.$var.'">'.($var + 1).'</a> ';
+                echo '<a class="page_switch '.($var == $curentPage ? 'select' : '').'" '.($var == $curentPage ? '' : 'onclick="loadFn('.$var.')"').'>'.($var + 1).'</a>';
             }
         }
 

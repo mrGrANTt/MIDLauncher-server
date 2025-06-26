@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 function connect(
     $host='localhost',
     $user='MIDLauncher',

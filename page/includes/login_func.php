@@ -2,7 +2,26 @@
 function register($name, $email, $pas) {
     $name = trim(htmlspecialchars($name));
     $email = trim(htmlspecialchars($email));
-    $pas = md5(trim(htmlspecialchars($pas)));
+    $pas = trim(htmlspecialchars($pas));
+
+    $passl = strlen($pas);
+    $pas = md5($pas);
+
+    $namel = strlen($name);
+    $emaill = strlen($email);
+
+    if(2 >= $namel || $namel >= 31) {
+        echo '<p style="color: red;">Name must be from 3 to 30 simbol!</p>';
+        return false;
+    }
+    if(1 > $emaill || $emaill >= 31) {
+        echo '<p style="color: red;">Email must be less than 30 simbol and not empty!</p>';
+        return false;
+    }
+    if(1 > $passl) {
+        echo '<p style="color: red;">Password must be not empty!</p>';
+        return false;
+    }
 
     global $link;
 
@@ -54,7 +73,21 @@ function register($name, $email, $pas) {
 
 function login($name, $pas) {
     $name = trim(htmlspecialchars($name));
-    $pas = md5(trim(htmlspecialchars($pas)));
+    $pas = trim(htmlspecialchars($pas));
+
+    $passl = strlen($pas);
+    $pas = md5($pas);
+
+    $namel = strlen($name);
+
+    if(2 >= $namel || $namel >= 31) {
+        echo '<p style="color: red;">Name must be from 3 to 30 simbol!</p>';
+        return false;
+    }
+    if(1 > $passl) {
+        echo '<p style="color: red;">Password must be not empty!</p>';
+        return false;
+    }
 
     global $link;
 

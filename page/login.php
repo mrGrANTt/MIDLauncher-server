@@ -36,7 +36,7 @@
                     <?php
                 }
             }
-            } else {
+        } else {
             ?>
                 <div class="upper">
                     <a href="?page=login" class="a-log unselect">Login</a>
