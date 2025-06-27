@@ -2,51 +2,132 @@
     if(checkRole(['admin', 'moderator'])) {
         echo '<main class="games">';
         if(isset($_GET['newgame'])) {
-
-        } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $id = $_GET['id'];
-
-            global $link;
-            $sel = $link->prepare('SELECT `games`.`id`, `games`.`name`, `games`.`description`, `games`.`url`, `users`.`name` as `sender_name` FROM `games` INNER JOIN `users` ON `games`.`sender_id` = `users`.`id` WHERE `games`.`id` = ?;');
-            $sel->bind_param('i', $id);
-            $err = "";
-
-            try {
-                $sel->execute();
-                $res = $sel->get_result(); 
-            } catch(mysqli_sql_exception $ex) {
-                $err = $ex->getMessage();
-            }
-            if(!($err == "" && $res)) {
-                echo $err.'<br />';
-                exit;
-            }
-
-            $arr = mysqli_fetch_array($res);
-            if($arr) {
-
-                echo '
-                    <h4 class="tablet-title">'.$arr['name'].'</h4>
-                    <div class="content">
-                        <table class="contentTable">
-                            <tr>
-                                <td>
-                                    <p class="description" >'.$arr['description'].'</p>
-                                    <p class="senderbox" > Sender: <a class="sender" href="?page=admin&user='.$arr['sender_name'].'">'.$arr['sender_name'].'</a></p>
-                                </td>
-                                <td class="buttonsMenu">
-                                    <a class="original" href="'.$arr['url'].'" >Original game page</a>
-                                    <a class="download" href="?page=download&id='.$arr['id'].'">Download game</a>
-                                </td>
-                            </tr>
-                        </table>
-                            <a class="back" href="?page=games">← Back to list</a>
+            // (оброботчик) {} else {...
+            ?>
+                <form method="POST">
+                    <div class="content" id="game_conteiner">
+                        <div class="colorTitle">
+                            <input type="text" name="name" class="game_input game_name" placeholder="Game name" />
+                            <input type="color" name="color" id="color" class="game_input game_color" placeholder="" />
+                        </div>
+                        <input type="text" name="ganre" class="game_input game_ganre" placeholder="Ganre of game" />
+                        <textarea maxlength="255" name="description" class="game_input game_description" placeholder="Some description of game" ></textarea>
+                        <input type="text" name="author" class="game_input game_author" placeholder="Author" />
+                        <input type="url" name="original_url" class="game_input game_original_url" placeholder="Url to original game" />
+                        <input type="file" name="icon" class="game_input game_icon" />
                     </div>
-                ';
+                    <button type="submit" name="newgame" id="game_submit">Save</button>
+                </form>
+
+                <script>
+                    let border = document.getElementById('game_conteiner');
+                    let color = document.getElementById('color');
+
+                    color.onchange = (ev) => {border.style.border = '2px solid ' + color.value};
+                    border.style.border = '2px solid ' + color.value;
+                </script>
+            <?php
+        } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) {
+            if (isset($_GET['remove'])) {
+                global $link;
+
+                $del = $link->prepare('DELETE FROM `games` WHERE `id` = ?;');
+                $del->bind_param('i', $_GET['id']);
+                $err = "";
+
+                try {
+                    $del->execute();
+                } catch(mysqli_sql_exception $ex) {
+                    $err = $ex->getMessage();
+                }
+                if(!$err == "") {
+                    echo $err.'<br />';
+                    exit;
+                } else {
+                    $filename = 'download/'.$_GET['id'].'.zip'; //форматы сжатия?
+                    if(file_exists($filename)) {
+                        unlink($filename);
+                    }
+
+                    ?>
+                        <script>
+                            window.location="<?php global $mainUrl; echo $mainUrl.'?page=games'; ?>";
+                        </script>
+                        </main>
+                    <?php
+                }
+            } else {
+
+                global $link;
+                $sel = $link->prepare('SELECT `games`.`id`, `games`.`name`, `games`.`description`, `games`.`url`, `users`.`name` as `sender_name` FROM `games` INNER JOIN `users` ON `games`.`sender_id` = `users`.`id` WHERE `games`.`id` = ?;');
+                $sel->bind_param('i', $_GET['id']);
+                $err = "";
+
+                try {
+                    $sel->execute();
+                    $res = $sel->get_result(); 
+                } catch(mysqli_sql_exception $ex) {
+                    $err = $ex->getMessage();
+                }
+                if(!($err == "" && $res)) {
+                    echo $err.'<br />';
+                    exit;
+                }
+
+                $arr = mysqli_fetch_array($res);
+                if($arr) {
+
+                    echo '
+                        <h4 class="tablet-title">'.$arr['name'].'</h4>
+                        <div class="content">
+                            <table class="contentTable">
+                                <tr>
+                                    <td>
+                                        <p class="description" >'.$arr['description'].'</p>
+                                        <p class="senderbox" > Sender: <a class="sender" href="?page=admin&user='.$arr['sender_name'].'">'.$arr['sender_name'].'</a></p>
+                                    </td>
+                                    <td class="buttonsMenu">
+                                        <a class="btn original" href="'.$arr['url'].'" >Original game page</a>
+                                        <a class="btn download" href="?page=download&id='.$arr['id'].'">Download game</a>
+                                        <a class="btn remove" id="openacc">Remove</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <a class="back" href="?page=games">← Back to list</a>
+                        </div>';
+                    ?>
+                        <div id="remove_menu">
+                            <div class="menu_elements">
+                                <p class="tablet-title">You realy want remove game?</p>
+                                <a id="yes" class="btn remove" href="<?php echo '?page=games&id='.$arr['id'].'&remove';?>">Remove</a>
+                                <a id="no" class="btn">Cancel</a>
+                            </div>
+                        </div>
+                        <script>
+                            let open = document.getElementById('openacc');
+                            let close = document.getElementById('no');
+                            let menu = document.getElementById('remove_menu')
+
+                            open.onclick = () => {openMenu(true)};
+                            close.onclick = () => {openMenu(false)};
+
+                            function openMenu(value) {
+                                console.log(menu.style.display + '  ' + value);
+                                menu.style.display = value == true ? '' : 'none';
+                            }
+                            openMenu(false);
+                        </script>
+                    <?php
+                } else {
+                    echo '
+                        <h4 class="tablet-title">Game undefined...</h4>
+                        <a class="back" href="?page=games">← Back to list</a>
+                    ';
+                }
             }
         } else {
             ?>
-                <a href="?page=games&newgame">Create new game</a>
+                <a href="?page=games&newgame" class="create_new">Create new game</a>
                 <h4 class="tablet-title">Games</h4>
                 <div id="result"></div>
 
@@ -65,7 +146,7 @@
                     document.getElementById('result').addEventListener('wheel', (ev) => {
                         let el = document.getElementById('page_input'); 
                         let deleta = (ev.deltaY > 0 ? 1 : -1);
-                        newValue = Number(el.value) + deleta;
+                        let newValue = Number(el.value) + deleta;
                         el.value = newValue > 0 ? newValue : 1;
                         loadFn(el.value -1);
                     });
@@ -100,7 +181,7 @@
                     font-size: 24px;
                 }
 
-                .content {
+                .content, .menu_elements {
                     background-color: var(--panel-bg);
                     padding: 25px 30px;
                     border-radius: 12px;
@@ -143,7 +224,7 @@
                     text-decoration: underline;
                 }
 
-                .original, .download, .back {
+                .btn, .back {
                     display: inline-block;
                     text-decoration: none;
                     padding: 10px 16px;
@@ -155,7 +236,7 @@
                     z-index: 3;
                 }
 
-                .original, .download{
+                .btn {
                     background-color: var(--hover-bg);
                     color: var(--text);
                     text-align: center;
@@ -174,7 +255,7 @@
                     width: 100px;
                 }
 
-                .original:hover, .download:hover {
+                .btn:hover {
                     transform: scale(1.03);
                     background-color: var(--accent-hover);
                     text-decoration: none;
@@ -212,7 +293,7 @@
                 #page_input {
                     position: relative;
                     z-index: 3;
-                    background-color: #1e1e2f;
+                    background-color: var(--main-bg);
                     color: white;
                     padding: 8px 14px;
                     border: none;
@@ -242,6 +323,117 @@
                 .select:hover {
                     text-decoration: none;
                     cursor:default;
+                }
+
+                .create_new {
+                    padding: 10px;
+                    border-radius: 12px;
+                    background-color: var(--accent);
+                    color: var(--text);
+                    transition: background-color 0.2s, transform 0.2s;
+                }
+
+                .create_new:hover {
+                    background-color: var(--accent-hover);
+                    transform: scale(1.03);
+                    text-decoration: none;
+                }
+
+                .remove {
+                    background-color: var(--bad);
+                }
+
+                .remove:hover {
+                    background-color: var(--bad-hover);
+                }
+
+                #remove_menu {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+
+                    background-color: rgba(0,0,0,0.3);
+                    z-index: 4;
+
+                    display:flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+
+                }
+
+                .menu_elements {
+                    max-width: 400px;
+                }
+                
+                #game_conteiner {
+                    position: relative;
+                    z-index: 3;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    transition: border 0.3s;
+                }
+
+                .colorTitle {
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                }
+
+                .game_input {
+                    box-sizing: border-box;
+                    background-color: var(--main-bg);
+                    color: var(--text);
+                    border: none;
+                    border-radius: 8px;
+                    padding: 10px 14px;
+                    outline: none;
+                    font-size: 14px;
+                    box-shadow: 0 0 0 2px transparent;
+                    transition: box-shadow 0.2s, transform 0.2s;
+                    width: 100%;
+                }
+
+                .game_input:focus {
+                    box-shadow: 0 0 0 2px var(--accent);
+                    transform: scale(1.02);
+                }
+
+                .game_color {
+                    width: 50px;
+                    padding: 0;
+                    height: 40px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                }
+
+                .game_description {
+                    resize: vertical;
+                    min-height: 100px;
+                }
+
+                #game_submit {
+                    position: relative;
+                    z-index: 3;
+
+                    background-color: var(--accent);
+                    color: var(--text);
+                    border: none;
+                    border-radius: 8px;
+                    padding: 12px 20px;
+                    font-weight: 600;
+                    font-size: 16px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                    transition: background-color 0.2s, transform 0.2s;
+                    align-self: flex-end;
+                }
+
+                #game_submit:hover {
+                    background-color: var(--accent-hover);
+                    transform: scale(1.05);
                 }
 
             </style>

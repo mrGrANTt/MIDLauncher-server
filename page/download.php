@@ -3,7 +3,13 @@
         <h2 class="text title">Oooops...</h2>
         
         <?php
-        $file = 'download/launcher-test-0.1-alpha.zip';
+        if(isset($_GET['id'])) {
+            $file = $_GET['id'].'.zip'; //форматы сжатия?
+        } elseif(isset($_GET['dayly'])) {
+            $file = 'dayly.zip'; //форматы сжатия?
+        } else {
+            $file = 'download/launcher-test-0.1-alpha.zip'; //форматы сжатия?
+        }
 
         if (file_exists($file)) {
             header('Content-Description: File Transfer');
@@ -15,6 +21,7 @@
             header('Content-Length: ' . filesize($file));
 
             readfile($file);
+            echo '<p class="text">Can\'t install file, contact the administration.</p>';
             exit;
         } else {
             echo '<p class="text">Can\'t find file, contact the administration.</p>';

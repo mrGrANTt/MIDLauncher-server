@@ -7,4 +7,6 @@
     --accent-hover: #3c8bb8;
     --text: #f0f0f0;
     --mini-text: gray;
+    --bad: #a10000;
+    --bad-hover: #800000;
 }
