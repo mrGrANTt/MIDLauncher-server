@@ -76,7 +76,7 @@ function checkRole($role) {
             try {
                 $sel->execute();
             } catch(mysqli_sql_exception $ex) {
-                echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
+                echo '<p style="color: var(--bad);">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
                 return false;
             }
 
@@ -85,7 +85,7 @@ function checkRole($role) {
             if($err != "") {
                 echo $err."<br/>";
                 ?>
-                    <p style="color: red;">Some think wrong... Call Administrator!</p>
+                    <p style="color: var(--bad);">Some think wrong... Call Administrator!</p>
                 <?php
             }
 

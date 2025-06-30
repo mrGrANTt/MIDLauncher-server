@@ -11,15 +11,23 @@ function register($name, $email, $pas) {
     $emaill = strlen($email);
 
     if(2 >= $namel || $namel >= 31) {
-        echo '<p style="color: red;">Name must be from 3 to 30 simbol!</p>';
+        echo '<p style="color: var(--bad);">Name must be from 3 to 30 simbol!</p>';
         return false;
-    }
+    } elseif(!preg_match('/^[-_ A-Za-z0-9]{3,}$/', $name)) {
+        echo '<p style="color: var(--bad);">Name must contain only a-z, A-Z, 0-9, "-" or "_"!</p>';
+        return false;
+    } 
+
     if(1 > $emaill || $emaill >= 31) {
-        echo '<p style="color: red;">Email must be less than 30 simbol and not empty!</p>';
+        echo '<p style="color: var(--bad);">Email must be less than 30 simbol and not empty!</p>';
+        return false;
+    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo '<p style="color: var(--bad);">Uncorrectly email!</p>';
         return false;
     }
+
     if(1 > $passl) {
-        echo '<p style="color: red;">Password must be not empty!</p>';
+        echo '<p style="color: var(--bad);">Password must be not empty!</p>';
         return false;
     }
 
@@ -35,11 +43,11 @@ function register($name, $email, $pas) {
     } catch(mysqli_sql_exception $ex) {
         if($ex->getCode() == 1062) {
             ?>
-                <p style="color: red;">Name or email alredy used!</p>
+                <p style="color: var(--bad);">Name or email alredy used!</p>
             <?php
             return false;
         } else {
-            echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
+            echo '<p style="color: var(--bad);">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
             return false;
         }
     }
@@ -47,7 +55,7 @@ function register($name, $email, $pas) {
     try {
         $sel->execute();
     } catch(mysqli_sql_exception $ex) {
-        echo '<p style="color: red;">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
+        echo '<p style="color: var(--bad);">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
         return false;
     }
 
@@ -56,7 +64,7 @@ function register($name, $email, $pas) {
     if($err != "") {
         echo $err."<br/>";
         ?>
-            <p style="color: red;">Some think wrong... Call Administrator!</p>
+            <p style="color: var(--bad);">Some think wrong... Call Administrator!</p>
         <?php
         return false;
     }
@@ -81,11 +89,11 @@ function login($name, $pas) {
     $namel = strlen($name);
 
     if(2 >= $namel || $namel >= 31) {
-        echo '<p style="color: red;">Name must be from 3 to 30 simbol!</p>';
+        echo '<p style="color: var(--bad);">Name must be from 3 to 30 simbol!</p>';
         return false;
     }
     if(1 > $passl) {
-        echo '<p style="color: red;">Password must be not empty!</p>';
+        echo '<p style="color: var(--bad);">Password must be not empty!</p>';
         return false;
     }
 

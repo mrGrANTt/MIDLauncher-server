@@ -2,12 +2,14 @@
     $onePageCount = 7;
     $curentPage = 0;
     $maxPageCount = 0;
+
+    
     $type = isset($_GET['page']) ? 
         ($_GET['page'] == 'suggest' ? 'suggest' : 'games')
          : 'games'; // ?page=games | ?page=suggest | ?page=suggest&closed + page=<num>
 
     session_start(); 
-    include_once('database.php');
+    include_once('../page/includes/database.php');
     connect();
 
     if(checkRole(['admin', 'moderator'])) {

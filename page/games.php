@@ -1,32 +1,70 @@
 <?php 
+    function resultCheck($res, $index) {
+        return ($res != '' && isset($res[$index]) && $res[$index] != '-') ? $res[$index] : '';
+    }
+    function tryToValue($param) {
+        return (isset($_POST[$param])) ? ' value="'.$_POST[$param].'" ' : '';
+    }
+
+
     if(checkRole(['admin', 'moderator'])) {
         echo '<main class="games">';
         if(isset($_GET['newgame'])) {
-            // (оброботчик) {} else {...
-            ?>
-                <form method="POST">
+            $result = '';
+            if(isset($_POST['newgame'])) {
+                $name = trim(htmlspecialchars($_POST['name']));
+                $autor = trim(htmlspecialchars($_POST['author']));
+                $entry = trim(htmlspecialchars($_POST['entry']));
+                $desc = trim(htmlspecialchars($_POST['description']));
+                $url = trim(htmlspecialchars($_POST['original_url']));
+                
+                include_once('page/includes/game_compare.php');
+                $result = compare($name, $autor, $entry, $desc, $url);
+                if($result !== false && is_numeric($result)) {
+                    ?>
+                        <script>
+                            window.location="<?php global $mainUrl; echo $mainUrl.'?page=games&id='.$result; ?>";
+                        </script>
+                    <?php
+                }
+            }
+
+            echo '
+                <form method="POST" enctype="multipart/form-data">
                     <div class="content" id="game_conteiner">
                         <div class="colorTitle">
-                            <input type="text" name="name" class="game_input game_name" placeholder="Game name" />
-                            <input type="color" name="color" id="color" class="game_input game_color" placeholder="" />
+                            <input type="text" name="name" class="game_input game_name" placeholder="Game name" '.tryToValue('name').'/>
+                            <input type="color" name="color" id="color" class="game_input game_color" placeholder="" '.tryToValue('color').'/>
                         </div>
-                        <input type="text" name="ganre" class="game_input game_ganre" placeholder="Ganre of game" />
-                        <textarea maxlength="255" name="description" class="game_input game_description" placeholder="Some description of game" ></textarea>
-                        <input type="text" name="author" class="game_input game_author" placeholder="Author" />
-                        <input type="url" name="original_url" class="game_input game_original_url" placeholder="Url to original game" />
+                        '.resultCheck($result, 0).'
+                        <input type="text" name="author" class="game_input game_author" placeholder="Author" '.tryToValue('author').' />
+                        '.resultCheck($result, 1).'
+                        <input type="text" name="entry" class="game_input game_entry" placeholder="Relative path to entry file" '.tryToValue('entry').' />
+                        '.resultCheck($result, 2).'
+                        <textarea maxlength="255" name="description" class="game_input game_description" placeholder="Some description of game">'.(isset($_POST['description']) ? $_POST['description'] : '').'</textarea>
+                        '.resultCheck($result, 3).'
+                        <input type="url" name="original_url" class="game_input game_original_url" placeholder="Url to original game" '.tryToValue('original_url').' />
+                        '.resultCheck($result, 4).'
+                        <span>Game\'s files(<a href="?page=guide&guide=uploadgame">More info</a>):</span>
+                        <input type="file" name="game" class="game_input game_icon" />
+                        '.resultCheck($result, 5).'
+                        <span>Game\'s icon(4x3 image)</span>
                         <input type="file" name="icon" class="game_input game_icon" />
+                        '.resultCheck($result, 6).'
                     </div>
                     <button type="submit" name="newgame" id="game_submit">Save</button>
                 </form>
 
                 <script>
-                    let border = document.getElementById('game_conteiner');
-                    let color = document.getElementById('color');
+                    let border = document.getElementById(\'game_conteiner\');
+                    let color = document.getElementById(\'color\');
 
-                    color.onchange = (ev) => {border.style.border = '2px solid ' + color.value};
-                    border.style.border = '2px solid ' + color.value;
+                    color.onchange = (ev) => {border.style.border = \'2px solid \' + color.value};
+                    border.style.border = \'2px solid \' + color.value;
                 </script>
-            <?php
+            ';
+            echo '<div class="space" />';
+
         } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) {
             if (isset($_GET['remove'])) {
                 global $link;
@@ -95,6 +133,8 @@
                             </table>
                             <a class="back" href="?page=games">← Back to list</a>
                         </div>';
+                        
+                        echo '<div class="space" />';
                     ?>
                         <div id="remove_menu">
                             <div class="menu_elements">
@@ -138,7 +178,7 @@
                         xhttp.onload = function() {
                             document.getElementById("result").innerHTML = this.responseText;
                         }
-                        xhttp.open("GET", "page\\includes\\page_list_gen.php?page=game&count=" + num, true);
+                        xhttp.open("GET", "public\\page_list_gen.php?page=game&count=" + num, true);
                         xhttp.send();
                     }
                     loadFn(0);
@@ -434,6 +474,17 @@
                 #game_submit:hover {
                     background-color: var(--accent-hover);
                     transform: scale(1.05);
+                }
+
+                .err {
+                    color: var(--bad);
+                    margin: -10px;
+                    margin-bottom: 10px;
+                    text-align: center;
+                }       
+                
+                .space {
+                    padding-bottom: 120px;
                 }
 
             </style>

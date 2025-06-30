@@ -4,13 +4,13 @@
         
         <?php
         if(isset($_GET['id'])) {
-            $file = $_GET['id'].'.zip'; //форматы сжатия?
+            $file = 'download/'.$_GET['id'].'.zip';
         } elseif(isset($_GET['dayly'])) {
-            $file = 'dayly.zip'; //форматы сжатия?
+            $file = 'download/dayly.zip';
         } else {
-            $file = 'download/launcher-test-0.1-alpha.zip'; //форматы сжатия?
+            $file = 'download/launcher-lastest.zip';
         }
-
+        
         if (file_exists($file)) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
@@ -21,7 +21,7 @@
             header('Content-Length: ' . filesize($file));
 
             readfile($file);
-            echo '<p class="text">Can\'t install file, contact the administration.</p>';
+            echo '<p class="text">If installing dont started, try to reload page.</p>';
             exit;
         } else {
             echo '<p class="text">Can\'t find file, contact the administration.</p>';

@@ -2,7 +2,6 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_URI} !^/GameServer/$
 RewriteCond %{REQUEST_URI} !^/GameServer/index\.php$
-RewriteCond %{REQUEST_URI} !^/GameServer/page/includes/parce_users\.php
-RewriteCond %{REQUEST_URI} !^/GameServer/page/includes/page_list_gen\.php
+RewriteCond %{REQUEST_URI} !^/GameServer/public/[_,a-z,A-Z]*\.php$
 RewriteCond %{REQUEST_URI} !\.(css|js|png|json)$ [NC]
 RewriteRule ^.*$ /GameServer/?page [R=302,L]

@@ -1,6 +1,6 @@
 <?php
     session_start(); 
-    include_once('database.php');
+    include_once('../page/includes/database.php');
     connect();
     
     if(checkRole('admin')) {

@@ -15,7 +15,7 @@
                             document.getElementById("result").innerHTML = this.responseText;
                         }
                         el = document.getElementById("search")
-                        xhttp.open("GET", "page/includes/parce_users.php?value=" + el.value, true);
+                        xhttp.open("GET", "public/parce_users.php?value=" + el.value, true);
                         xhttp.send();
                     }
                     loadDoc();
@@ -91,10 +91,10 @@
             
             if(isset($_POST['save'])) {
                 if ($name == $_SESSION['name']) {
-                    echo '<p style="color: red;">You can\'t edit yourself!</p>';
+                    echo '<p style="color: var(--bad);">You can\'t edit yourself!</p>';
                 }
                 elseif($err == "") {
-                    echo '<p style="color: green;">Success update!</p>';
+                    echo '<p style="color: var(--good);">Success update!</p>';
                 }
             }
 
