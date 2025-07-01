@@ -75,7 +75,7 @@ img:hover {
 }
 
 .footer a {
-    color: #007acc;
+    color: var(--accent);
     text-decoration: none;
 }
 

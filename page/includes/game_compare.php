@@ -24,9 +24,10 @@
         elseif(!filter_var($url, FILTER_VALIDATE_URL)) $inputErr[] .= '<p class="err">It\'s not url addres!</p>';
         else $inputErr[] .= '-';
 
-        $inputErr[] .= '-';//game
-        
-        if(!isset($_FILES['icon']['tmp_name']) || $_FILES['icon']['type'] != 'image/png') $inputErr[] .= '<p class="err">Icon must be .png type!</p>';
+        if(!preg_match('/^application\/(x-|)zip(-compressed|)$/', $_FILES['game']['type'])) $inputErr[] .= '<p class="err">You must select .zip file with game</p>';
+        else $inputErr[] .= '-';
+
+        if($_FILES['icon']['type'] != 'image/png') $inputErr[] .= '<p class="err">Icon must be .png type!</p>';
         else $inputErr[] .= '-';
 
         foreach($inputErr as $v) {
@@ -61,29 +62,41 @@
         }
         $id = $arr['id'];
         
-        $json = '
-{
-    "name": "'.$name.'",
-    "description": "'.$desc.'",
-    "path": "'.$entry.'",
-    "autor": "'.$autor.'",
-    "url": "'.$url.'"
-}
-        ';
+        $json = '{'."\n".
+            '"name": "'.$name.'",'."\n".
+            '"description": "'.$desc.'",'."\n".
+            '"path": "./game'.substr($entry, 1).'",'."\n".
+            '"autor": "'.$autor.'",'."\n".
+            '"url": "'.$url.'"'."\n".
+        '}'."\n".'';
 
-        if(!is_dir('download/'.$id)) mkdir('download/'.$id, 0777, true);
-        $jsonFile = fopen('download/'.$id.'/data.json', 'w');
-        if(!$jsonFile) {
-            echo '<p style="color: var(--bad);">Can\'t open file...</p>';
-            return false;
+        $zip = new ZipArchive();
+
+        if ($zip->open('download/'.$id.'.zip', ZipArchive::CREATE)!==TRUE) {
+            exit('<p style="color: var(--bad);">Can\'t open zip file...</p>');
         }
-        fwrite($jsonFile, $json);
-        fclose($jsonFile);
 
-        move_uploaded_file($_FILES['icon']['tmp_name'], "download/".$id."/icon.png");
+        $zip->addFromString('data.json', $json);
+        $zip->addFile($_FILES['icon']['tmp_name'], 'icon.png');
+        
+        $gameZip = new ZipArchive();
 
-        //add zip
+        if ($gameZip->open($_FILES['game']['tmp_name'], ZipArchive::CREATE)!==TRUE) {
+            exit('<p style="color: var(--bad);">Can\'t open zip file...</p>');
+        }
 
+        for ($i=0; $i<$gameZip->numFiles; $i++) {
+            $info = $gameZip->statIndex($i);
+            $name = $info['name'];
+
+            $content = $gameZip->getFromIndex($i);
+
+            $zip->addFromString('game/'.$name, $content);
+        }
+
+        $gameZip->close();
+        $zip->close();
+         
         return $id;
-    }
+    } // zip dont opening on windows... Maby its not problem. Need test
 ?>

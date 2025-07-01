@@ -317,7 +317,7 @@
                 }
 
                 .mainTR {
-                    background-color: #1e1e2f;
+                    background-color: var(--main-bg);
                 }
 
                 .tabletTitle, .tabletValue {

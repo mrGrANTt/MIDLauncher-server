@@ -3,7 +3,7 @@
         <h2 class="text title">Oooops...</h2>
         
         <?php
-        if(isset($_GET['id'])) {
+        if(isset($_GET['id']) && is_numeric($_GET['id']) && checkRole(['admin','moderator'])) {
             $file = 'download/'.$_GET['id'].'.zip';
         } elseif(isset($_GET['dayly'])) {
             $file = 'download/dayly.zip';
@@ -21,7 +21,7 @@
             header('Content-Length: ' . filesize($file));
 
             readfile($file);
-            echo '<p class="text">If installing dont started, try to reload page.</p>';
+            echo '<p class="text">If installing don\'t started, try to reload page.</p>';
             exit;
         } else {
             echo '<p class="text">Can\'t find file, contact the administration.</p>';
