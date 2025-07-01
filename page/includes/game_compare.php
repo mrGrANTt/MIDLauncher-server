@@ -63,11 +63,11 @@
         $id = $arr['id'];
         
         $json = '{'."\n".
-            '"name": "'.$name.'",'."\n".
-            '"description": "'.$desc.'",'."\n".
-            '"path": "./game'.substr($entry, 1).'",'."\n".
-            '"autor": "'.$autor.'",'."\n".
-            '"url": "'.$url.'"'."\n".
+        '   "name": "'.$name.'",'."\n".
+        '   "description": "'.$desc.'",'."\n".
+        '   "path": "./'.$name.'/game'.substr($entry, 1).'",'."\n".
+        '   "autor": "'.$autor.'",'."\n".
+        '   "url": "'.$url.'"'."\n".
         '}'."\n".'';
 
         $zip = new ZipArchive();
@@ -76,8 +76,8 @@
             exit('<p style="color: var(--bad);">Can\'t open zip file...</p>');
         }
 
-        $zip->addFromString('data.json', $json);
-        $zip->addFile($_FILES['icon']['tmp_name'], 'icon.png');
+        $zip->addFromString($name.'/data.json', $json);
+        $zip->addFile($_FILES['icon']['tmp_name'], $name.'/icon.png');
         
         $gameZip = new ZipArchive();
 
@@ -87,16 +87,16 @@
 
         for ($i=0; $i<$gameZip->numFiles; $i++) {
             $info = $gameZip->statIndex($i);
-            $name = $info['name'];
+            $fname = $info['name'];
 
             $content = $gameZip->getFromIndex($i);
 
-            $zip->addFromString('game/'.$name, $content);
+            $zip->addFromString($name.'/game/'.$fname, $content);
         }
 
         $gameZip->close();
         $zip->close();
          
         return $id;
-    } // zip dont opening on windows... Maby its not problem. Need test
+    } // zip dont opening on windows before download... its problem. Need fix
 ?>
