@@ -98,5 +98,5 @@
         $zip->close();
          
         return $id;
-    } // zip dont opening on windows before download... its problem. Need fix
+    }
 ?>

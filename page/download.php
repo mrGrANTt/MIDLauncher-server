@@ -12,15 +12,16 @@
         }
         
         if (file_exists($file)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
+            ob_clean();
+
+            header('Content-Type: application/zip');
             header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
             header('Content-Length: ' . filesize($file));
+            header('Expires: 0');
+            header('Cache-Control: no-cache, must-revalidate');
 
             readfile($file);
+
             echo '<p class="text">If installing don\'t started, try to reload page.</p>';
             exit;
         } else {

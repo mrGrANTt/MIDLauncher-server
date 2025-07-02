@@ -31,7 +31,6 @@
         global $link;
 
         $count = 'SELECT COUNT(*) FROM `'.$type.'` '.genWHERE($type).';';
-        echo "'$count'</br>";
         $count = $link->prepare($count);
 
         if(isset($_GET['value'])) $count->bind_param('s', $value);
@@ -61,7 +60,6 @@
         $num = $curentPage * $onePageCount;
 
         $sel = 'SELECT `date`, `id`, `name` FROM `'.$type.'` '.genWHERE($type).' ORDER BY `date` DESC, `name` LIMIT ?, ?;';
-        echo "'$sel'</br>";
         $sel = $link->prepare($sel);
 
         if(isset($_GET['value'])) $sel->bind_param('sii', $value, $num, $onePageCount);
