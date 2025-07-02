@@ -68,6 +68,8 @@
                 case "download": include_once("page/download.php"); break;
                 default: include_once("page/404.html"); break;
             }
+        } else if(isset($_GET['guide'])) {
+            include_once('page/guide.php');
         } else {
             include_once('page/main.php');
         }
