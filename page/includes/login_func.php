@@ -1,4 +1,7 @@
 <?php
+
+use BcMath\Number;
+
 function register($name, $email, $pas) {
     $name = trim(htmlspecialchars($name));
     $email = trim(htmlspecialchars($email));
@@ -27,7 +30,7 @@ function register($name, $email, $pas) {
     }
 
     if(1 > $passl) {
-        echo '<p style="color: var(--bad);">Password must be not empty!</p>';
+        echo '<p style="color: var(--bad);">Password can\'t be empty!</p>';
         return false;
     }
 
@@ -93,7 +96,7 @@ function login($name, $pas) {
         return false;
     }
     if(1 > $passl) {
-        echo '<p style="color: var(--bad);">Password must be not empty!</p>';
+        echo '<p style="color: var(--bad);">Password can\'t be empty!</p>';
         return false;
     }
 
@@ -110,7 +113,7 @@ function login($name, $pas) {
         $err = $ex->getMessage();
     }
     if(!($err == "" && $res)) {
-        echo '<p style="color: red;">Bad login or password...</p>';
+        echo '<p style="color: var(--bad);">Bad login or password...</p>';
         return false;
     }
     $arr = mysqli_fetch_array($res);
@@ -121,9 +124,131 @@ function login($name, $pas) {
         return true;
     } else {
         ?> 
-            <p style="color: red;">Bad login or password...</p>
+            <p style="color: var(--bad);">Bad login or password...</p>
         <?php
         return false;
+    }
+}
+
+function chengePassword($lastPass, $newPass, $newPass2) {
+    $lastPass = trim(htmlspecialchars($lastPass)); 
+    $newPass = trim(htmlspecialchars($newPass));
+    $newPass2 = trim(htmlspecialchars($newPass2));
+
+    if($newPass != $newPass2) {
+        return '<p style="color: var(--bad);">New passwords must compare...</p>';
+    }
+
+    $passl = strlen($newPass);
+    if(1 > $passl) {
+        return '<p style="color: var(--bad);">Password can\'t be not empty!</p>';
+    }
+
+    global $link;
+
+    $sel = $link->prepare('SELECT `pass` FROM `users` WHERE `id` = ?;');
+    $sel->bind_param('i', $_SESSION['id']);
+    $err = "";
+
+    try {
+        $sel->execute();
+        $res = $sel->get_result(); 
+    } catch(mysqli_sql_exception $ex) {
+        $err = $ex->getMessage();
+    }
+    if(!($err == "" && $res)) {
+        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+    }
+    $arr = mysqli_fetch_array($res);
+    
+    if($arr) {
+        $pass = $arr['pass'];
+        $lastPass = md5($lastPass);
+        $newPass = md5($newPass);
+        
+        if($pass != $lastPass) {
+            return '<p style="color: var(--bad);">Bad last password...</p>';
+        }
+        if($pass == $newPass) {
+            return '<p style="color: var(--bad);">Last and new password must be different</p>';
+        }
+
+        $upd = $link->prepare('UPDATE `users` SET pass = ? WHERE id = ?;');
+        $upd->bind_param('si', $newPass, $_SESSION['id']);
+        $err = "";
+
+        try {
+            $upd->execute(); 
+        } catch(mysqli_sql_exception $ex) {
+            $err = $ex->getMessage();
+        }
+        if($err != "") {
+            return '<p style="color: var(--bad);">Something was wrongly. Password don\'t updated...</p>';
+        }
+
+        return '<p style="color: var(--good);">Password sucsses chenged!</p>';
+    } else { 
+        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+    }
+}
+
+function chengeEmail($email, $pass) {
+    $email = trim(htmlspecialchars($email)); 
+    $pass = trim(htmlspecialchars($pass));
+
+    $emaill = strlen($email);
+
+    if(1 > $emaill || $emaill >= 31) {
+        return '<p style="color: var(--bad);">Email must be less than 30 simbol and not empty!</p>';
+    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return '<p style="color: var(--bad);">Uncorrectly email!</p>';
+    }
+
+    global $link; 
+
+    $sel = $link->prepare('SELECT `pass` FROM `users` WHERE `id` = ?;');
+    $sel->bind_param('i', $_SESSION['id']);
+    $err = "";
+
+    try {
+        $sel->execute();
+        $res = $sel->get_result(); 
+    } catch(mysqli_sql_exception $ex) {
+        $err = $ex->getMessage();
+    }
+    if(!($err == "" && $res)) {
+        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+    }
+    $arr = mysqli_fetch_array($res);
+
+    if($arr) {
+        $tpass = $arr['pass'];
+        $pass = md5($pass);
+        if($pass == $tpass) 
+        {
+            $upd = $link->prepare('UPDATE `users` SET email = ? WHERE id = ?;');
+            $upd->bind_param('si', $email, $_SESSION['id']);
+            $err = "";
+
+            try {
+                $upd->execute(); 
+            } catch(mysqli_sql_exception $ex) {
+                if($ex->getCode() == 1062) {
+                    return '<p style="color: var(--bad);">Email alredy used!</p>';
+                } else {
+                    $err = $ex->getMessage(); 
+                }
+            }
+            if($err != "") {
+                return '<p style="color: var(--bad);">Something was wrongly. Email don\'t updated...</p>';
+            }
+
+            return '<p style="color: var(--good);">Email sucsses chenged!</p>';
+        } else {
+            return '<p style="color: var(--bad);">Bad password... Try again</p>';
+        }
+    } else { 
+        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
     }
 }
 

@@ -1,0 +1,164 @@
+<script>
+
+    function hide(self, el, value, beforText) {
+        self.innerText = (value == true ? '>' : '∨') + beforText;
+        el.style.display = value == true ? 'none' : '';
+
+        self.onclick = (ev) => {
+            hide(self, el, !value, ' Sended Suggest');
+        }
+    }
+
+</script>
+    <?php
+    function getInfo($id, $hasGame) {
+        global $link;
+        echo '<h4 id="title-suggest" class="tablet-title sends">Sended Suggest</h4>';
+
+        $sel = $link->prepare('SELECT `date`, `id`, `name` FROM `suggest` WHERE `sender_id` = ?;');
+        $sel->bind_param('i', $id);
+        $err = "";
+
+        try {
+            $sel->execute();
+            $res = $sel->get_result(); 
+        } catch(mysqli_sql_exception $ex) {
+            $err = $ex->getMessage();
+        }
+        if(!($err == "" && $res)) {
+            echo $err.'<br />';
+            exit;
+        }
+
+        $arr = mysqli_fetch_all($res);
+        if($arr) {
+            ?>
+                <table class="suggest" id="tablet-suggest">
+                    <tr class="mainTR"> <td class="tabletTitle">Date</td> <td class="tabletTitle">Suggest</td> </tr>
+                    
+                    <?php 
+                        foreach($arr as $v) {
+                            echo '
+                            <tr class="tabletTR"> 
+                                <td class="tabletValue">
+                                    '.$v[0].'
+                                </td> 
+                                <td class="tabletValue">
+                                    <a href="?page=suggest&id='.$v[1].'">
+                                        '.$v[2].'
+                                    </a>
+                                </td> 
+                            </tr>';
+                        }
+                    ?>
+                </table>
+                <script>
+                    hide(document.getElementById('title-suggest'), document.getElementById('tablet-suggest'), false, ' Sended Suggest');
+                </script>
+            <?php 
+        }
+        else { 
+            echo '<p class="noresult">No result...';
+        }
+        
+        if($hasGame === true) {
+            echo '<h4 id="title-games" class="tablet-title accepted">Added game</h4>';
+            
+            $sel = $link->prepare('SELECT `date`, `id`, `name` FROM `games` WHERE `sender_id` = ?;');
+            $sel->bind_param('i', $id);
+            $err = "";
+
+            try {
+                $sel->execute();
+                $res = $sel->get_result(); 
+            } catch(mysqli_sql_exception $ex) {
+                $err = $ex->getMessage();
+            }
+            if(!($err == "" && $res)) {
+                echo $err.'<br />';
+                exit;
+            }
+
+            $arr = mysqli_fetch_all($res);
+            if($arr) {
+                ?>
+                    <table class="accepted_suggest"  id="tablet-games">
+                        <tr class="mainTR"> <td class="tabletTitle">Date</td> <td class="tabletTitle">Game</td> </tr>
+                        <?php 
+                        foreach($arr as $v) {
+                            echo '
+                            <tr class="tabletTR"> 
+                                <td class="tabletValue">
+                                    '.$v[0].'
+                                </td> 
+                                <td class="tabletValue">
+                                    <a href="?page=games&id='.$v[1].'">
+                                        '.$v[2].'
+                                    </a>
+                                </td> 
+                            </tr>';
+                        }
+                        ?>
+                    </table>
+                    <script>
+                        hide(document.getElementById('title-games'), document.getElementById('tablet-games'), false, ' Sended Suggest');
+                    </script>
+                <?php 
+            } else {
+                echo '<p class="noresult">No result...'; 
+            }
+        }
+
+        ?>
+            <style>
+                    .tablet-title {
+                        position: relative;
+                    margin: 20px 0 10px;
+                    text-align: center;
+                    color: var(--accent);
+                    font-size: 18px;
+                    z-index: 3;
+                }
+
+                table {
+                    width: 100%;
+                    max-width: 600px;
+                    border-collapse: collapse;
+                    background-color: var(--panel-bg);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+                    z-index: 3;
+                }
+
+                .mainTR {
+                    background-color: #1e1e2f;
+                }
+
+                .tabletTitle, .tabletValue {
+                    padding: 12px 16px;
+                    text-align: left;
+                    border-bottom: 1px solid rgba(255,255,255,0.05);
+                }
+
+                .tabletTR:last-child td {
+                    border-bottom: none;
+                }
+                
+                .noresult {
+                    font-style: italic;
+                    color: var(--mini-text);
+                    text-align: center;
+                }
+
+                p {
+                    display: inline-block;
+                }
+
+                .footer {
+                    z-index: 5;
+                }
+            </style>
+        <?php
+    }
+?>

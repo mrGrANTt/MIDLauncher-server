@@ -98,94 +98,8 @@
                 }
             }
 
-            ?>
-                <h4 class="tablet-title sends">Sended Suggest</h4>
-            <?php 
-
-            $sel = $link->prepare('SELECT `date`, `id`, `name` FROM `suggest` WHERE `sender_id` = ?;');
-            $sel->bind_param('i', $id);
-            $err = "";
-
-            try {
-                $sel->execute();
-                $res = $sel->get_result(); 
-            } catch(mysqli_sql_exception $ex) {
-                $err = $ex->getMessage();
-            }
-            if(!($err == "" && $res)) {
-                echo $err.'<br />';
-                exit;
-            }
-
-            $arr = mysqli_fetch_all($res);
-            if($arr) {
-                ?>
-                    <table class="suggest">
-                        <tr class="mainTR"> <td class="tabletTitle">Date</td> <td class="tabletTitle">Suggest</td> </tr>
-                        
-                        <?php 
-                        foreach($arr as $v) {
-                            echo '
-                            <tr class="tabletTR"> 
-                                <td class="tabletValue">
-                                    '.$v[0].'
-                                </td> 
-                                <td class="tabletValue">
-                                    <a href="?page=suggest&id='.$v[1].'">
-                                        '.$v[2].'
-                                    </a>
-                                </td> 
-                            </tr>';
-                        }
-                        ?>
-                    </table>
-                <?php 
-            } else { echo '<p class="noresult">No result...'; }
-
-            if($role == 'moderator' || $role == 'admin') {
-                ?>
-                    <h4 class="tablet-title accepted">Accepted Suggest</h4>
-                <?php
-                $sel = $link->prepare('SELECT `date`, `id`, `name` FROM `games` WHERE `sender_id` = ?;');
-                $sel->bind_param('i', $id);
-                $err = "";
-
-                try {
-                    $sel->execute();
-                    $res = $sel->get_result(); 
-                } catch(mysqli_sql_exception $ex) {
-                    $err = $ex->getMessage();
-                }
-                if(!($err == "" && $res)) {
-                    echo $err.'<br />';
-                    exit;
-                }
-
-                $arr = mysqli_fetch_all($res);
-                if($arr) {
-                    ?>
-                        <table class="accepted_suggest">
-                            <tr class="mainTR"> <td class="tabletTitle">Date</td> <td class="tabletTitle">Suggest</td> </tr>
-                            
-                        <?php 
-                        foreach($arr as $v) {
-                            echo '
-                            <tr class="tabletTR"> 
-                                <td class="tabletValue">
-                                    '.$v[0].'
-                                </td> 
-                                <td class="tabletValue">
-                                    <a href="?page=games&id='.$v[1].'">
-                                        '.$v[2].'
-                                    </a>
-                                </td> 
-                            </tr>';
-                        }
-                        ?>
-                        </table>
-                    <?php 
-                } else { echo '<p class="noresult">No result...'; }
-            }
+            include_once('page/includes/accaunt_info.php');
+            getInfo($id, ($role == 'admin' || $role == 'moderator'));
             echo '<div class="space" />';
         }
     ?>
@@ -305,36 +219,10 @@
             background-color: var(--accent);
         }
 
-        .tablet-title {
-            margin: 20px 0 10px;
-            text-align: center;
-            color: var(--accent);
-            font-size: 18px;
-        }
-
-        table {
-            width: 100%;
-            max-width: 600px;
-            border-collapse: collapse;
-            background-color: var(--panel-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            z-index: 3;
-        }
-
-        .mainTR {
-            background-color: #1e1e2f;
-        }
-
-        .tabletTitle, .tabletValue {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .tabletTR:last-child td {
-            border-bottom: none;
+        .btn:hover {
+            transform: scale(1.03);
+            background-color: var(--accent-hover);
+            text-decoration: none;
         }
 
         a {
@@ -345,30 +233,6 @@
 
         a:hover {
             text-decoration: underline;
-        }
-
-        .serch_res {
-            color: var(--text);
-        }
-
-        .btn:hover {
-            transform: scale(1.03);
-            background-color: var(--accent-hover);
-            text-decoration: none;
-        }
-
-        .noresult {
-            font-style: italic;
-            color: var(--mini-text);
-            text-align: center;
-        }
-
-        p {
-            display: inline-block;
-        }
-
-        .footer {
-            z-index: 5;
         }
 
         .space {

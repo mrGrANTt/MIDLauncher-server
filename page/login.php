@@ -124,7 +124,7 @@ form {
     border: none;
     padding: 10px 18px;
     border-radius: 8px;
-    color: white;
+    color: var(--text);
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
