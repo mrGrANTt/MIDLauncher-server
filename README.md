@@ -1,4 +1,4 @@
-## Setup site
+# Setup site
 ## Apache 
 ### Install apache2
 ```bash
@@ -46,7 +46,7 @@ sudo systemctl restart apache2
 ```
 
 ### Test your setup
-1. Create test.php in DocumentRoot(By default: /var/www/html/)
+1. Create test.php in DocumentRoot(By default: `/var/www/html/`)
 2. Add simple code 
 ```php
 <?php
@@ -121,7 +121,9 @@ EXIT;
 > `YourGoodP@@ssw00rd` - Your new password
 
 ### Log in again and enter new password
+```bash
 mysql -u root -p
+```
 
 ### Create database and new user
 > Don't forget to save new `database name`, `username` and `user's password`. 
@@ -173,11 +175,11 @@ sudo nano /etc/apache2/sites-available/midl.conf
 For our example? it will be:
 ```conf
 <VirtualHost *:80>
-        ServerAdmin example@example.com
-	ServerName midl.com
-        DocumentRoot /var/www/midl
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ServerAdmin example@example.com
+    ServerName midl.com
+    DocumentRoot /var/www/midl
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
 
@@ -189,9 +191,13 @@ sudo a2ensite midl.conf
 sudo a2dissite 000-default.conf
 sudo systemctl restart apache2
 ```
+If you have problems with the site, check `/var/log/apache2/error.log`.
 
 
 
+<br />
+<br />
+<br />
 
 
 
