@@ -10,10 +10,10 @@
     }
 
 </script>
-    <?php
+<?php
     function getInfo($id, $hasGame) {
         global $link;
-        echo '<h4 id="title-suggest" class="tablet-title sends">Sended Suggest</h4>';
+        echo '<h4 id="title-suggest" class="tablet-title sends unselectable">Sended Suggest</h4>';
 
         $sel = $link->prepare('SELECT `date`, `id`, `name` FROM `suggest` WHERE `sender_id` = ?;');
         $sel->bind_param('i', $id);
@@ -62,7 +62,7 @@
         }
         
         if($hasGame === true) {
-            echo '<h4 id="title-games" class="tablet-title accepted">Added game</h4>';
+            echo '<h4 id="title-games" class="tablet-title accepted unselectable">Added game</h4>';
             
             $sel = $link->prepare('SELECT `date`, `id`, `name` FROM `games` WHERE `sender_id` = ?;');
             $sel->bind_param('i', $id);
@@ -158,6 +158,16 @@
                 .footer {
                     z-index: 5;
                 }
+
+                .unselectable {
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    -khtml-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    cursor: default;
+                }   
             </style>
         <?php
     }
