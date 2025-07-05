@@ -1,17 +1,18 @@
-# ==  APACHE  ==
-## Install apache2
+## Setup site
+## Apache 
+### Install apache2
 ```bash
 sudo apt update
 sudo apt install apache2  
 ```
 
-## Enable apache2
+### Enable apache2
 ```bash
 sudo systemctl start apache2
 sudo systemctl enable apache2
 ```
 
-## Check status
+### Check status
 ```bash
 sudo systemctl status apache2
 ```
@@ -35,15 +36,16 @@ Will output something like:
 ```
 Before it you can check website `http://<ip-addres>`. You will see "Apache2 Default Page". If not - check logs in `/var/logapache2/error.log`.
 
+<br />
 
-# ==  PHP  ==
-## Install php and moduls
+## PHP
+### Install php and moduls
 ```bash
 sudo apt install php libapache2-mod-php php-mysql
 sudo systemctl restart apache2
 ```
 
-## Test your setup
+### Test your setup
 1. Create test.php in DocumentRoot(By default: /var/www/html/)
 2. Add simple code 
 ```php
@@ -54,20 +56,21 @@ sudo systemctl restart apache2
 3. open in browser `http://<ip-addres>/text.php`
 You will see php parametres
 
+<br />
 
-# ==  MySQL  ==
-## Install MySQL
+## MySQL
+### Install MySQL
 ```bash
 sudo apt install mysql-server
 ```
 
-## Enable mysql-server
+### Enable mysql-server
 ```bash
 sudo systemctl start mysql
 sudo systemctl enable mysql
 ```
 
-## You also can check status
+### You also can check status
 ```bash
 sudo systemctl status mysql
 ```
@@ -85,7 +88,7 @@ Will output something like:
              └─9826 /usr/sbin/mysqld
 ```
 
-## Run MySQL secure installation script
+### Run MySQL secure installation script
 ```bash
 sudo mysql_secure_installation
 ```
@@ -104,12 +107,12 @@ Success.
 All done! 
 ```
 
-## Open sql console
+### Open sql console
 ```bash
 sudo mysql
 ```
 
-## Chenge root password
+### Chenge root password
 ```sql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YourGoodP@@ssw00rd';
 FLUSH PRIVILEGES;
@@ -117,10 +120,10 @@ EXIT;
 ```
 > `YourGoodP@@ssw00rd` - Your new password
 
-## Log in again and enter new password
+### Log in again and enter new password
 mysql -u root -p
 
-## Create database and new user
+### Create database and new user
 > Don't forget to save new `database name`, `username` and `user's password`. 
 ```sql
 CREATE database <database name>;
@@ -130,34 +133,36 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
+<br />
 
-# ==  GIT  ==
-## Install git
+## GIT
+### Install git
 ```bash
 sudo apt install git
 ```
 
-## Clone code to DocumentRoot(By default: /var/www/html/, but we will change it)
+### Clone code to DocumentRoot(By default: /var/www/html/, but we will change it)
 > DocumentRoot is `/var/www/html/` by default, but we will change it
 ```bash
 cd /var/www/
 sudo git clone -b main https://github.com/mrGrANTt/MIDLauncher-server midl
 ```
 
-## Grant Apache access to files
+### Grant Apache access to files
 ```bash
 sudo chown -R $USER:$USER /var/www/midl
 sudo chmod -R 755 /var/www/midl
 ```
 
+<br />
 
-# == Other Config ==
-## Copy apache config
+## Other Config
+### Copy apache config
 ```bash
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/midl.conf
 ```
 
-## Edit Apache config
+### Edit Apache config
 ```bash
 sudo nano /etc/apache2/sites-available/midl.conf
 ```
@@ -176,7 +181,9 @@ For our example? it will be:
 </VirtualHost>
 ```
 
-## Enable site
+<br />
+
+### Enable site
 ```bash
 sudo a2ensite midl.conf
 sudo a2dissite 000-default.conf
@@ -209,7 +216,7 @@ sudo systemctl restart apache2
 
 
 
-## php.ini
+### php.ini
 ```ini
 upload_max_filesize=300M
 post_max_size=310M
