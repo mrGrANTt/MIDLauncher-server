@@ -83,7 +83,7 @@
                         ?>
                     </div>
                     <div class="buttons">
-                        <a href="?page=admin" class="btn back">Back</a>
+                        <a href="?page=admin" class="btn back">To List</a>
                         <button type="submit" class="btn save" name="save">Save</button>
                     </div>
                 </form>

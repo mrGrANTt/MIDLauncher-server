@@ -1,11 +1,11 @@
 <script>
 
     function hide(self, el, value, beforText) {
-        self.innerText = (value == true ? '>' : '∨') + beforText;
+        self.innerText = (value == true ? '▲' : '▼') + beforText;
         el.style.display = value == true ? 'none' : '';
 
         self.onclick = (ev) => {
-            hide(self, el, !value, ' Sended Suggest');
+            hide(self, el, !value, beforText);
         }
     }
 
@@ -111,13 +111,19 @@
 
         ?>
             <style>
-                    .tablet-title {
-                        position: relative;
+                .tablet-title {
+                    position: relative;
                     margin: 20px 0 10px;
                     text-align: center;
                     color: var(--accent);
                     font-size: 18px;
                     z-index: 3;
+                    transition: transform 0.2s;
+                }
+
+                .tablet-title:hover {
+                    transform: scale(1.03);
+                    text-decoration: underline;
                 }
 
                 table {

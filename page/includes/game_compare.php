@@ -5,9 +5,7 @@
         $entry = trim(htmlspecialchars($entry)); 
         $desc = trim(htmlspecialchars($desc)); 
         $url = trim(htmlspecialchars($url));
-        $date = date('d.m.Y');
-
-        $game = $_FILES['game']['tmp_name'];
+        $date = date('Y-m-d');
 
         $inputErr = [];
 

@@ -35,14 +35,15 @@ function generate_tablet() {
             `url` varchar(128) NOT NULL,
             `description` varchar(255),
             `unsver` varchar(255),
-            `date` varchar(10),
+            `accept` BIT,
+            `date` DATE,
             FOREIGN KEY (`sender_id`) REFERENCES `users`(`id`)
         );',
         'CREATE TABLE IF NOT EXISTS `games` (
             `id` INTEGER NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
             `sender_id` INTEGER NOT NULL,
             `name` varchar(30) NOT NULL,
-            `date` varchar(10),
+            `date` DATE,
             `description` varchar(255) NOT NULL,
             `url` varchar(255),
             FOREIGN KEY (`sender_id`) REFERENCES `users`(`id`)
@@ -70,7 +71,7 @@ function checkRole($role) {
         } else {
             global $link;
 
-            $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ? AND `role` = ? LIMIT 1;"); // 1';DELETE from `users` WHERE name = '123
+            $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ? AND `role` = ? LIMIT 1;");
             $sel->bind_param('ss', $_SESSION['name'], $role);
 
             try {

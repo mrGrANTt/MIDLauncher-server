@@ -14,8 +14,8 @@
 
         $res = '';
         switch ($value) {
-            case 'suggest1': $res = 'WHERE `unsver` IS '.(isset($_GET['closed']) ? 'NOT' : '').' NULL AND `name` LIKE ?'; break;
-            case 'suggest0': $res = 'WHERE `unsver` IS '.(isset($_GET['closed']) ? 'NOT' : '').' NULL'; break;
+            case 'suggest1': $res = 'WHERE `accept` IS '.(isset($_GET['closed']) ? 'NOT' : '').' NULL AND `name` LIKE ?'; break;
+            case 'suggest0': $res = 'WHERE `accept` IS '.(isset($_GET['closed']) ? 'NOT' : '').' NULL'; break;
             case 'games1': $res = 'WHERE `name` LIKE ?'; break;
         }
         return $res;
@@ -93,7 +93,7 @@
                                 '.$v[0].'
                             </td> 
                             <td class="tabletValue">
-                                <a href="?page='.$type.'&id='.$v[1].'">
+                                <a href="?page='.$type.(isset($_GET['closed']) ? '&closed' : '').'&id='.$v[1].'">
                                     '.$v[2].'
                                 </a>
                             </td> 

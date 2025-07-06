@@ -12,14 +12,8 @@
         if(isset($_GET['newgame'])) {
             $result = '';
             if(isset($_POST['newgame'])) {
-                $name = trim(htmlspecialchars($_POST['name']));
-                $autor = trim(htmlspecialchars($_POST['author']));
-                $entry = trim(htmlspecialchars($_POST['entry']));
-                $desc = trim(htmlspecialchars($_POST['description']));
-                $url = trim(htmlspecialchars($_POST['original_url']));
-                
                 include_once('page/includes/game_compare.php');
-                $result = compare($name, $autor, $entry, $desc, $url);
+                $result = compare($_POST['name'], $_POST['author'], $_POST['entry'], $_POST['description'], $_POST['original_url']);
                 if($result !== false && is_numeric($result)) {
                     ?>
                         <script>
@@ -187,8 +181,12 @@
                         let el = document.getElementById('page_input'); 
                         let deleta = (ev.deltaY > 0 ? 1 : -1);
                         let newValue = Number(el.value) + deleta;
-                        el.value = newValue > 0 ? newValue : 1;
-                        loadFn(el.value -1);
+                        newValue = newValue > 0 ? newValue : 1;
+
+                        if (el.value != newValue) {
+                            el.value = newValue;
+                            loadFn(el.value -1);
+                        }
                     });
                 </script>
                 <input id="page_input" type="number" min="1" value="1" oninput="loadFn(document.getElementById('page_input').value - 1)" />
