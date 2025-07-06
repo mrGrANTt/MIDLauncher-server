@@ -115,7 +115,7 @@
                     position: relative;
                     margin: 20px 0 10px;
                     text-align: center;
-                    color: var(--accent);
+                    color: rgb(var(--accent));
                     font-size: 18px;
                     z-index: 3;
                     transition: transform 0.2s;
@@ -130,7 +130,7 @@
                     width: 100%;
                     max-width: 600px;
                     border-collapse: collapse;
-                    background-color: var(--panel-bg);
+                    background-color: rgb(var(--panel-bg));
                     border-radius: 10px;
                     overflow: hidden;
                     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
@@ -153,7 +153,7 @@
                 
                 .noresult {
                     font-style: italic;
-                    color: var(--mini-text);
+                    color: rgb(var(--mini-text));
                     text-align: center;
                 }
 

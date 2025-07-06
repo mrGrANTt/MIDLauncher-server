@@ -1,7 +1,5 @@
 <?php
 
-use BcMath\Number;
-
 function register($name, $email, $pas) {
     $name = trim(htmlspecialchars($name));
     $email = trim(htmlspecialchars($email));
@@ -14,23 +12,23 @@ function register($name, $email, $pas) {
     $emaill = strlen($email);
 
     if(2 >= $namel || $namel >= 31) {
-        echo '<p style="color: var(--bad);">Name must be from 3 to 30 simbol!</p>';
+        echo '<p style="color: rgb(var(--bad));">Name must be from 3 to 30 simbol!</p>';
         return false;
     } elseif(!preg_match('/^[-_ A-Za-z0-9]{3,}$/', $name)) {
-        echo '<p style="color: var(--bad);">Name must contain only a-z, A-Z, 0-9, "-" or "_"!</p>';
+        echo '<p style="color: rgb(var(--bad));">Name must contain only a-z, A-Z, 0-9, "-" or "_"!</p>';
         return false;
     } 
 
     if(1 > $emaill || $emaill >= 31) {
-        echo '<p style="color: var(--bad);">Email must be less than 30 simbol and not empty!</p>';
+        echo '<p style="color: rgb(var(--bad));">Email must be less than 30 simbol and not empty!</p>';
         return false;
     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo '<p style="color: var(--bad);">Uncorrectly email!</p>';
+        echo '<p style="color: rgb(var(--bad));">Uncorrectly email!</p>';
         return false;
     }
 
     if(1 > $passl) {
-        echo '<p style="color: var(--bad);">Password can\'t be empty!</p>';
+        echo '<p style="color: rgb(var(--bad));">Password can\'t be empty!</p>';
         return false;
     }
 
@@ -46,11 +44,11 @@ function register($name, $email, $pas) {
     } catch(mysqli_sql_exception $ex) {
         if($ex->getCode() == 1062) {
             ?>
-                <p style="color: var(--bad);">Name or email alredy used!</p>
+                <p style="color: rgb(var(--bad));">Name or email alredy used!</p>
             <?php
             return false;
         } else {
-            echo '<p style="color: var(--bad);">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
+            echo '<p style="color: rgb(var(--bad));">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
             return false;
         }
     }
@@ -58,7 +56,7 @@ function register($name, $email, $pas) {
     try {
         $sel->execute();
     } catch(mysqli_sql_exception $ex) {
-        echo '<p style="color: var(--bad);">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
+        echo '<p style="color: rgb(var(--bad));">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
         return false;
     }
 
@@ -67,7 +65,7 @@ function register($name, $email, $pas) {
     if($err != "") {
         echo $err."<br/>";
         ?>
-            <p style="color: var(--bad);">Some think wrong... Call Administrator!</p>
+            <p style="color: rgb(var(--bad));">Some think wrong... Call Administrator!</p>
         <?php
         return false;
     }
@@ -92,11 +90,11 @@ function login($name, $pas) {
     $namel = strlen($name);
 
     if(2 >= $namel || $namel >= 31) {
-        echo '<p style="color: var(--bad);">Name must be from 3 to 30 simbol!</p>';
+        echo '<p style="color: rgb(var(--bad));">Name must be from 3 to 30 simbol!</p>';
         return false;
     }
     if(1 > $passl) {
-        echo '<p style="color: var(--bad);">Password can\'t be empty!</p>';
+        echo '<p style="color: rgb(var(--bad));">Password can\'t be empty!</p>';
         return false;
     }
 
@@ -113,7 +111,7 @@ function login($name, $pas) {
         $err = $ex->getMessage();
     }
     if(!($err == "" && $res)) {
-        echo '<p style="color: var(--bad);">Bad login or password...</p>';
+        echo '<p style="color: rgb(var(--bad));">Bad login or password...</p>';
         return false;
     }
     $arr = mysqli_fetch_array($res);
@@ -124,7 +122,7 @@ function login($name, $pas) {
         return true;
     } else {
         ?> 
-            <p style="color: var(--bad);">Bad login or password...</p>
+            <p style="color: rgb(var(--bad));">Bad login or password...</p>
         <?php
         return false;
     }
@@ -136,12 +134,12 @@ function chengePassword($lastPass, $newPass, $newPass2) {
     $newPass2 = trim(htmlspecialchars($newPass2));
 
     if($newPass != $newPass2) {
-        return '<p style="color: var(--bad);">New passwords must compare...</p>';
+        return '<p style="color: rgb(var(--bad));">New passwords must compare...</p>';
     }
 
     $passl = strlen($newPass);
     if(1 > $passl) {
-        return '<p style="color: var(--bad);">Password can\'t be not empty!</p>';
+        return '<p style="color: rgb(var(--bad));">Password can\'t be not empty!</p>';
     }
 
     global $link;
@@ -157,7 +155,7 @@ function chengePassword($lastPass, $newPass, $newPass2) {
         $err = $ex->getMessage();
     }
     if(!($err == "" && $res)) {
-        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+        return '<p style="color: rgb(var(--bad));">Something was wrongly. Call administrator...</p>';
     }
     $arr = mysqli_fetch_array($res);
     
@@ -167,10 +165,10 @@ function chengePassword($lastPass, $newPass, $newPass2) {
         $newPass = md5($newPass);
         
         if($pass != $lastPass) {
-            return '<p style="color: var(--bad);">Bad last password...</p>';
+            return '<p style="color: rgb(var(--bad));">Bad last password...</p>';
         }
         if($pass == $newPass) {
-            return '<p style="color: var(--bad);">Last and new password must be different</p>';
+            return '<p style="color: rgb(var(--bad));">Last and new password must be different</p>';
         }
 
         $upd = $link->prepare('UPDATE `users` SET pass = ? WHERE id = ?;');
@@ -183,12 +181,12 @@ function chengePassword($lastPass, $newPass, $newPass2) {
             $err = $ex->getMessage();
         }
         if($err != "") {
-            return '<p style="color: var(--bad);">Something was wrongly. Password don\'t updated...</p>';
+            return '<p style="color: rgb(var(--bad));">Something was wrongly. Password don\'t updated...</p>';
         }
 
-        return '<p style="color: var(--good);">Password sucsses chenged!</p>';
+        return '<p style="color: rgb(var(--good));">Password sucsses chenged!</p>';
     } else { 
-        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+        return '<p style="color: rgb(var(--bad));">Something was wrongly. Call administrator...</p>';
     }
 }
 
@@ -199,9 +197,9 @@ function chengeEmail($email, $pass) {
     $emaill = strlen($email);
 
     if(1 > $emaill || $emaill >= 31) {
-        return '<p style="color: var(--bad);">Email must be less than 30 simbol and not empty!</p>';
+        return '<p style="color: rgb(var(--bad));">Email must be less than 30 simbol and not empty!</p>';
     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return '<p style="color: var(--bad);">Uncorrectly email!</p>';
+        return '<p style="color: rgb(var(--bad));">Uncorrectly email!</p>';
     }
 
     global $link; 
@@ -217,7 +215,7 @@ function chengeEmail($email, $pass) {
         $err = $ex->getMessage();
     }
     if(!($err == "" && $res)) {
-        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+        return '<p style="color: rgb(var(--bad));">Something was wrongly. Call administrator...</p>';
     }
     $arr = mysqli_fetch_array($res);
 
@@ -234,21 +232,21 @@ function chengeEmail($email, $pass) {
                 $upd->execute(); 
             } catch(mysqli_sql_exception $ex) {
                 if($ex->getCode() == 1062) {
-                    return '<p style="color: var(--bad);">Email alredy used!</p>';
+                    return '<p style="color: rgb(var(--bad));">Email alredy used!</p>';
                 } else {
                     $err = $ex->getMessage(); 
                 }
             }
             if($err != "") {
-                return '<p style="color: var(--bad);">Something was wrongly. Email don\'t updated...</p>';
+                return '<p style="color: rgb(var(--bad));">Something was wrongly. Email don\'t updated...</p>';
             }
 
-            return '<p style="color: var(--good);">Email sucsses chenged!</p>';
+            return '<p style="color: rgb(var(--good));">Email sucsses chenged!</p>';
         } else {
-            return '<p style="color: var(--bad);">Bad password... Try again</p>';
+            return '<p style="color: rgb(var(--bad));">Bad password... Try again</p>';
         }
     } else { 
-        return '<p style="color: var(--bad);">Something was wrongly. Call administrator...</p>';
+        return '<p style="color: rgb(var(--bad));">Something was wrongly. Call administrator...</p>';
     }
 }
 

@@ -41,7 +41,7 @@
 
 .text_conteiner {
     text-align: center;
-    background-color: var(--panel-bg);
+    background-color: rgb(var(--panel-bg));
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -53,7 +53,7 @@
 }
 
 .text>a {
-    color: var(--accent);
+    color: rgb(var(--accent));
     text-decoration: none;
 }
 

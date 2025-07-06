@@ -14,7 +14,7 @@
 
     .download_btn {
         padding: 14px 28px;
-        background-color: var(--accent);
+        background-color: rgb(var(--accent));
         color: white;
         border: none;
         border-radius: 12px;

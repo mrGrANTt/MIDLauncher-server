@@ -1,14 +1,14 @@
 :root {
-    --main-bg: #1e1e2f;
-    --panel-bg: #2c2c3a;
-    --hover-bg: #3a3a4a;
-    --input-focus-bg: #26263a;
-    --accent: #4fa3d1;
-    --accent-hover: #3c8bb8;
-    --text: #f0f0f0;
-    --mini-text: gray;
-    --bad: #a10000;
-    --bad-hover: #800000;
-    --good: #00a100;
-    --good-hover: #008000;
+    --main-bg: 30, 30, 47;
+    --panel-bg: 44, 44, 58;
+    --hover-bg: 58, 58, 74;
+    --input-focus-bg: 38, 38, 58;
+    --accent: 79, 163, 209;
+    --accent-hover: 60, 139, 184;
+    --text: 240, 240, 240;
+    --mini-text: 128, 128, 128;
+    --bad: 161, 0, 0;
+    --bad-hover: 128, 0, 0;
+    --good: 0, 161, 0;
+    --good-hover: 0, 128, 0;
 }

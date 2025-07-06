@@ -201,7 +201,7 @@
                     align-items: center;
                     padding: 120px 20px 40px;
                     gap: 10px;
-                    color: var(--text);
+                    color: rgb(var(--text));
                 }
 
                 #result {
@@ -215,12 +215,12 @@
                 .tablet-title {
                     margin: 20px 0 10px;
                     text-align: center;
-                    color: var(--text);
+                    color: rgb(var(--text));
                     font-size: 24px;
                 }
 
                 .content, .menu_elements {
-                    background-color: var(--panel-bg);
+                    background-color: rgb(var(--panel-bg));
                     padding: 25px 30px;
                     border-radius: 12px;
                     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -233,7 +233,7 @@
                 }
 
                 a {
-                    color: var(--accent);
+                    color: rgb(var(--accent));
                     text-decoration: none;
                     position: relative;
                     z-index: 3;
@@ -247,14 +247,14 @@
 
                 .senderbox {
                     margin: 0;
-                    color: var(--mini-text);
+                    color: rgb(var(--mini-text));
                     font-size: 14px;
                     display: inline-block;
                     width: fit-content;
                 }
 
                 .content .sender {
-                    color: var(--accent);
+                    color: rgb(var(--accent));
                     text-decoration: none;
                 }
 
@@ -275,8 +275,8 @@
                 }
 
                 .btn {
-                    background-color: var(--hover-bg);
-                    color: var(--text);
+                    background-color: rgb(var(--hover-bg));
+                    color: rgb(var(--text));
                     text-align: center;
                 }
 
@@ -288,14 +288,14 @@
 
                 .back {
                     background-color: transparent;
-                    color: var(--mini-text);
+                    color: rgb(var(--mini-text));
                     padding: 10px 0;
                     width: 100px;
                 }
 
                 .btn:hover {
                     transform: scale(1.03);
-                    background-color: var(--accent-hover);
+                    background-color: rgb(var(--accent-hover));
                     text-decoration: none;
                 }
 
@@ -307,7 +307,7 @@
                     width: 100%;
                     max-width: 600px;
                     border-collapse: collapse;
-                    background-color: var(--panel-bg);
+                    background-color: rgb(var(--panel-bg));
                     border-radius: 10px;
                     overflow: hidden;
                     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
@@ -315,7 +315,7 @@
                 }
 
                 .mainTR {
-                    background-color: var(--main-bg);
+                    background-color: rgb(var(--main-bg));
                 }
 
                 .tabletTitle, .tabletValue {
@@ -331,7 +331,7 @@
                 #page_input {
                     position: relative;
                     z-index: 3;
-                    background-color: var(--main-bg);
+                    background-color: rgb(var(--main-bg));
                     color: white;
                     padding: 8px 14px;
                     border: none;
@@ -345,17 +345,17 @@
                 #page_input {
                     position: relative;
                     z-index: 3;
-                    box-shadow: 0 0 0 2px var(--accent);
+                    box-shadow: 0 0 0 2px rgb(var(--accent));
                 }
 
                 .description {
-                    color: var(--text);
+                    color: rgb(var(--text));
                     line-height: 1.6;
                     margin: 0;
                 }
 
                 .select {
-                    color: var(--text);
+                    color: rgb(var(--text));
                 }
 
                 .select:hover {
@@ -366,23 +366,23 @@
                 .create_new {
                     padding: 10px;
                     border-radius: 12px;
-                    background-color: var(--accent);
-                    color: var(--text);
+                    background-color: rgb(var(--accent));
+                    color: rgb(var(--text));
                     transition: background-color 0.2s, transform 0.2s;
                 }
 
                 .create_new:hover {
-                    background-color: var(--accent-hover);
+                    background-color: rgb(var(--accent-hover));
                     transform: scale(1.03);
                     text-decoration: none;
                 }
 
                 .remove {
-                    background-color: var(--bad);
+                    background-color: rgb(var(--bad));
                 }
 
                 .remove:hover {
-                    background-color: var(--bad-hover);
+                    background-color: rgb(var(--bad-hover));
                 }
 
                 #remove_menu {
@@ -422,8 +422,8 @@
 
                 .game_input {
                     box-sizing: border-box;
-                    background-color: var(--main-bg);
-                    color: var(--text);
+                    background-color: rgb(var(--main-bg));
+                    color: rgb(var(--text));
                     border: none;
                     border-radius: 8px;
                     padding: 10px 14px;
@@ -435,7 +435,7 @@
                 }
 
                 .game_input:focus {
-                    box-shadow: 0 0 0 2px var(--accent);
+                    box-shadow: 0 0 0 2px rgb(var(--accent));
                     transform: scale(1.02);
                 }
 
@@ -456,8 +456,8 @@
                     position: relative;
                     z-index: 3;
 
-                    background-color: var(--accent);
-                    color: var(--text);
+                    background-color: rgb(var(--accent));
+                    color: rgb(var(--text));
                     border: none;
                     border-radius: 8px;
                     padding: 12px 20px;
@@ -470,12 +470,12 @@
                 }
 
                 #game_submit:hover {
-                    background-color: var(--accent-hover);
+                    background-color: rgb(var(--accent-hover));
                     transform: scale(1.05);
                 }
 
                 .err {
-                    color: var(--bad);
+                    color: rgb(var(--bad));
                     margin: -10px;
                     margin-bottom: 10px;
                     text-align: center;

@@ -54,13 +54,13 @@
             $err = $ex->getMessage();
         }
         if(!($err == "" && $res)) {
-            echo '<p style="color: var(--bad);">Somthing wrongly in sql...</p>';
+            echo '<p class="err">Somthing wrongly in sql...</p>';
             return false;
         }
         $arr = mysqli_fetch_array($res);
         
         if(!$arr) {
-            echo '<p style="color: var(--bad);">Somthing wrongly in sql result...</p>';
+            echo '<p class="err">Somthing wrongly in sql result...</p>';
             return false;
         }
         $id = $arr['id'];
@@ -76,7 +76,7 @@
         $zip = new ZipArchive();
 
         if ($zip->open('download/'.$id.'.zip', ZipArchive::CREATE)!==TRUE) {
-            exit('<p style="color: var(--bad);">Can\'t open zip file...</p>');
+            exit('<p class="err">Can\'t open zip file...</p>');
         }
 
         $zip->addFromString($name.'/data.json', $json);
@@ -85,7 +85,7 @@
         $gameZip = new ZipArchive();
 
         if ($gameZip->open($_FILES['game']['tmp_name'], ZipArchive::CREATE)!==TRUE) {
-            exit('<p style="color: var(--bad);">Can\'t open zip file...</p>');
+            exit('<p class="err">Can\'t open zip file...</p>');
         }
 
         for ($i=0; $i<$gameZip->numFiles; $i++) {

@@ -184,9 +184,9 @@
                         <p class="url" >Url: <a href="'.$arr['url'].'">'.$arr['url'].'</a></p>
                         <p class="senderbox" > Sender: <span class="sender" >'.$arr['sender_name'].'</span></p>
                         <input name="id" hidden value="'.$arr['id'].'" />
-                        <p class="unsverall" >Unsver: '.(is_null($arr['accept']) ? 
-                            ' --- ' :
-                            '<textarea class="unsver '.($arr['accept'] == 1 ? 'accepted' : 'rejected').'" name="unsver" readonly>'.$arr['unsver'].'</textarea>').'
+                        <p class="unsverall" >Unsver: <textarea class="unsver '.(is_null($arr['accept']) ? 
+                            '" placeholder="Pleace wait for a response" name="unsver" readonly>' :
+                            ($arr['accept'] == 1 ? 'accepted' : 'rejected').'" name="unsver" readonly>'.$arr['unsver']).'</textarea>
                         </p>
                         <a class="back" href="?page=account">← Back to account</a>
                     </div>';
@@ -245,7 +245,7 @@
         align-items: center;
         padding: 120px 20px 40px;
         gap: 10px;
-        color: var(--text);
+        color: rgb(var(--text));
         position: relative;
         z-index: 3;
     }
@@ -261,12 +261,12 @@
     .tablet-title {
         margin: 20px 0 10px;
         text-align: center;
-        color: var(--text);
+        color: rgb(var(--text));
         font-size: 24px;
     }
 
     a {
-        color: var(--accent);
+        color: rgb(var(--accent));
         text-decoration: none;
         position: relative;
         z-index: 3;
@@ -279,7 +279,7 @@
     }
 
     a.back {
-        color: var(--mini-text);
+        color: rgb(var(--mini-text));
         text-decoration: none;
         font-size: 14px;
         margin-top: 10px;
@@ -290,7 +290,7 @@
     }
     
     .content, .content-user-form {
-        background-color: var(--panel-bg);
+        background-color: rgb(var(--panel-bg));
         padding: 25px 30px;
         border-radius: 12px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -305,13 +305,13 @@
     .tablet-title {
         margin: 20px 0 10px;
         text-align: center;
-        color: var(--text);
+        color: rgb(var(--text));
         font-size: 24px;
     }
     
     .sug_input, .unsver {
-        background-color: var(--main-bg);
-        color: var(--text);
+        background-color: rgb(var(--main-bg));
+        color: rgb(var(--text));
         border: none;
         border-radius: 8px;
         padding: 12px 16px;
@@ -323,7 +323,7 @@
     }
 
     .sug_input:focus, .unsver:focus {
-        box-shadow: 0 0 0 2px var(--accent);
+        box-shadow: 0 0 0 2px rgb(var(--accent));
     }
 
     .sug_description {
@@ -334,7 +334,7 @@
         width: 100%;
         max-width: 600px;
         border-collapse: collapse;
-        background-color: var(--panel-bg);
+        background-color: rgb(var(--panel-bg));
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 16px rgba(0,0,0,0.3);
@@ -342,8 +342,8 @@
     }
 
     #sug_submit, .accept, .reject {
-        background-color: var(--accent);
-        color: var(--text);
+        background-color: rgb(var(--accent));
+        color: rgb(var(--text));
         border: none;
         border-radius: 8px;
         padding: 10px 16px;
@@ -354,38 +354,38 @@
     }
 
     .accept {
-        background-color: var(--good);
+        background-color: rgb(var(--good));
     } 
 
     .reject {
-        background-color: var(--bad);
+        background-color: rgb(var(--bad));
     }
 
     #sug_submit:hover, .accept:hover, .reject:hover {
         transform: scale(1.03);
-        background-color: var(--accent-hover);
+        background-color: rgb(var(--accent-hover));
     }
 
     .accept:hover {
-        background-color: var(--good-hover);
+        background-color: rgb(var(--good-hover));
     } 
 
     .reject:hover {
-        background-color: var(--bad-hover);
+        background-color: rgb(var(--bad-hover));
     }
 
     .unsver.accepted {
-        border-left: 4px solid var(--good);
-        background-color: rgba(0, 161, 0, 0.1);
+        border-left: 4px solid rgb(var(--good));
+        background-color: rgba(var(--good), 0.1);
     }
 
     .unsver.rejected {
-        border-left: 4px solid var(--bad);
-        background-color: rgba(161, 0, 0, 0.1);
+        border-left: 4px solid rgb(var(--bad));
+        background-color: rgba(var(--bad), 0.1);
     }
 
     .mainTR {
-        background-color: var(--main-bg);
+        background-color: rgb(var(--main-bg));
     }
 
     .tabletTitle, .tabletValue {
@@ -401,7 +401,7 @@
     #page_input {
         position: relative;
         z-index: 3;
-        background-color: var(--main-bg);
+        background-color: rgb(var(--main-bg));
         color: white;
         padding: 8px 14px;
         border: none;
@@ -415,11 +415,11 @@
     #page_input {
         position: relative;
         z-index: 3;
-        box-shadow: 0 0 0 2px var(--accent);
+        box-shadow: 0 0 0 2px rgb(var(--accent));
     }                
     
     .select {
-        color: var(--text);
+        color: rgb(var(--text));
     }
 
     .select:hover {
@@ -436,26 +436,26 @@
     .page_type {
         padding: 10px;
         border-radius: 12px;
-        background-color: var(--accent);
-        color: var(--text);
+        background-color: rgb(var(--accent));
+        color: rgb(var(--text));
         transition: background-color 0.2s, transform 0.2s;
     }
 
     .page_type:hover {
-        background-color: var(--accent-hover);
+        background-color: rgb(var(--accent-hover));
         transform: scale(1.03);
         text-decoration: none;
     }
 
     .url, .description, .senderbox {
-        color: var(--text);
+        color: rgb(var(--text));
         font-size: 14px;
         word-break: break-all;
         margin: 0;
     }
 
     .description {
-        border-bottom: 4px solid var(--hover-bg);
+        border-bottom: 4px solid rgb(var(--hover-bg));
         padding-bottom: 15px;
     }
 
@@ -470,28 +470,30 @@
     }
 
     textarea.unsver {
+        border-left: 4px solid rgb(var(--main-bg));
+        background-color: rgba(0, 0, 0, 0.1);
         min-height: 80px;
         resize: vertical;
     }
 
     .sender {
-        color: var(--accent);
+        color: rgb(var(--accent));
         text-decoration: none;
     }
 
     .unselect {
-        background-color: var(--panel-bg);
+        background-color: rgb(var(--panel-bg));
         opacity: 0.5;
     }
 
     .unselect:hover {
-        background-color: var(--panel-bg);
+        background-color: rgb(var(--panel-bg));
         transform: scale(1);
         cursor: default;
     }
 
     .err {
-        color: var(--bad);
+        color: rgb(var(--bad));
         font-size: 13px;
     }
                 

@@ -100,14 +100,14 @@
                     align-items: center;
                     padding: 60px 20px 40px;
                     gap: 15px;
-                    color: var(--text);
+                    color: rgb(var(--text));
                     padding-top: 120px;
                 }
 
                 .box {       
                     width: 100%;
                     max-width: 350px;
-                    background-color: var(--panel-bg);
+                    background-color: rgb(var(--panel-bg));
                     padding: 20px;
                     padding-top: 0px;
                     border-radius: 10px;
@@ -139,7 +139,7 @@
                 }
 
                 .sec-text {
-                    color: var(--mini-text);
+                    color: rgb(var(--mini-text));
                 }
 
                 .inputer {
@@ -147,16 +147,16 @@
                     font-size: 16px;
                     border: none;
                     border-radius: 8px;
-                    background-color: var(--main-bg);
-                    color: var(--text);
+                    background-color: rgb(var(--main-bg));
+                    color: rgb(var(--text));
                     outline: none;
                     transition: background-color 0.2s, box-shadow 0.2s;
                     z-index: 3;
                 }
 
                 .inputer:focus {
-                    background-color: var(--input-focus-bg);
-                    box-shadow: 0 0 0 2px var(--accent);
+                    background-color: rgb(var(--input-focus-bg));
+                    box-shadow: 0 0 0 2px rgb(var(--accent));
                 }
 
                 .btn {
@@ -168,34 +168,34 @@
                     cursor: pointer;
                     transition: background-color 0.2s, transform 0.2s;
                     z-index: 3;
-                    color: var(--text);
+                    color: rgb(var(--text));
                 }
 
                 .bad {
-                    background-color: var(--bad);
+                    background-color: rgb(var(--bad));
                 }
 
                 .bad:hover {
                     transform: scale(1.03);
-                    background-color: var(--bad-hover);
+                    background-color: rgb(var(--bad-hover));
                 }
 
                 .save {
-                    background-color: var(--accent);
+                    background-color: rgb(var(--accent));
                 }
                 
                 .save:hover {
                     transform: scale(1.03);
-                    background-color: var(--accent-hover);
+                    background-color: rgb(var(--accent-hover));
                 }
 
                 .title {
                     text-align: center;
-                    color: var(--text);
+                    color: rgb(var(--text));
                 }
 
                 a {
-                    color: var(--accent);
+                    color: rgb(var(--accent));
                     text-decoration: none;
                     z-index: 3;
                 }

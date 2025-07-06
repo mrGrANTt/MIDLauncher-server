@@ -91,10 +91,10 @@
             
             if(isset($_POST['save'])) {
                 if ($name == $_SESSION['name']) {
-                    echo '<p style="color: var(--bad);">You can\'t edit yourself!</p>';
+                    echo '<p style="color: rgb(var(--bad));">You can\'t edit yourself!</p>';
                 }
                 elseif($err == "") {
-                    echo '<p style="color: var(--good);">Success update!</p>';
+                    echo '<p style="color: rgb(var(--good));">Success update!</p>';
                 }
             }
 
@@ -112,7 +112,7 @@
             align-items: center;
             padding: 60px 20px 40px;
             gap: 30px;
-            color: var(--text);
+            color: rgb(var(--text));
             padding-top: 120px;
         }
 
@@ -123,7 +123,7 @@
             max-width: 400px;
             border: none;
             border-radius: 8px;
-            background-color: var(--panel-bg);
+            background-color: rgb(var(--panel-bg));
             color: white;
             outline: none;
             box-shadow: 0 0 0 2px transparent;
@@ -132,17 +132,17 @@
         }
 
         #search:focus {
-            box-shadow: 0 0 0 2px var(--accent);
+            box-shadow: 0 0 0 2px rgb(var(--accent));
         }
 
         #search:hover {
-            box-shadow: 0 0 0 2px var(--accent);
+            box-shadow: 0 0 0 2px rgb(var(--accent));
         }
 
         #result {
             width: 100%;
             max-width: 400px;
-            background-color: var(--panel-bg);
+            background-color: rgb(var(--panel-bg));
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -160,7 +160,7 @@
             gap: 20px;
             width: 100%;
             max-width: 300px;
-            background-color: var(--panel-bg);
+            background-color: rgb(var(--panel-bg));
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.4);
@@ -185,7 +185,7 @@
         .role_selection {
             padding: 8px 12px;
             font-size: 14px;
-            background-color: var(--main-bg);
+            background-color: rgb(var(--main-bg));
             color: white;
             border-radius: 6px;
             border: none;
@@ -212,27 +212,31 @@
         }
 
         .btn.back {
-            background-color: var(--main-bg);
+            background-color: rgb(var(--main-bg));
         }
 
         .btn.save {
-            background-color: var(--accent);
+            background-color: rgb(var(--accent));
         }
 
         .btn:hover {
             transform: scale(1.03);
-            background-color: var(--accent-hover);
+            background-color: rgb(var(--accent-hover));
             text-decoration: none;
         }
 
         a {
-            color: var(--accent);
+            color: rgb(var(--accent));
             text-decoration: none;
             z-index: 3;
         }
 
         a:hover {
             text-decoration: underline;
+        }
+
+        .serch_res {
+            color: rgb(var(--text));
         }
 
         .space {

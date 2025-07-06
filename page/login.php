@@ -72,7 +72,7 @@
     align-items: center;
     min-height: calc(100vh - 100px);
     padding: 40px 20px;
-    background-color: var(--main-bg);
+    background-color: rgb(var(--main-bg));
 }
 
 form {
@@ -80,7 +80,7 @@ form {
     flex-direction: column;
     gap: 15px;
     max-width: 400px;
-    background-color: var(--panel-bg);
+    background-color: rgb(var(--panel-bg));
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -102,16 +102,16 @@ form {
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    background-color: var(--main-bg);
-    color: var(--text);
+    background-color: rgb(var(--main-bg));
+    color: rgb(var(--text));
     outline: none;
     transition: background-color 0.2s, box-shadow 0.2s;
     z-index: 2;
 }
 
 .inputer:focus {
-    background-color: var(--input-focus-bg);
-    box-shadow: 0 0 0 2px var(--accent);
+    background-color: rgb(var(--input-focus-bg));
+    box-shadow: 0 0 0 2px rgb(var(--accent));
 }
 
 .sub-conteiner {
@@ -120,11 +120,11 @@ form {
 }
 
 .submit-btn {
-    background-color: var(--accent);
+    background-color: rgb(var(--accent));
     border: none;
     padding: 10px 18px;
     border-radius: 8px;
-    color: var(--text);
+    color: rgb(var(--text));
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
@@ -132,7 +132,7 @@ form {
 }
 
 .submit-btn:hover {
-    background-color: var(--accent-hover);
+    background-color: rgb(var(--accent-hover));
     transform: scale(1.03);
 }
 
@@ -147,15 +147,15 @@ form {
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 6px;
-    background-color: var(--panel-bg);
-    color: var(--text);
+    background-color: rgb(var(--panel-bg));
+    color: rgb(var(--text));
     transition: background-color 0.2s;
     z-index: 3;
 }
 
 .a-log:hover,
 .a-reg:hover {
-    background-color: var(--hover-bg);
+    background-color: rgb(var(--hover-bg));
 }
 
 .a-log.unselect,
