@@ -247,7 +247,6 @@
         gap: 10px;
         color: rgb(var(--text));
         position: relative;
-        z-index: 3;
     }
 
     #result {
@@ -255,7 +254,6 @@
         max-width: 400px;
         padding: 20px;
         border-radius: 10px;
-        z-index: 3;
     }
 
     .tablet-title {
@@ -269,7 +267,6 @@
         color: rgb(var(--accent));
         text-decoration: none;
         position: relative;
-        z-index: 3;
         margin-right: 2px;
     }
 
@@ -299,7 +296,6 @@
         gap: 16px;
         width: 100%;
         max-width: 600px;
-        z-index: 3;
     }
 
     .tablet-title {
@@ -338,7 +334,6 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-        z-index: 3;
     }
 
     #sug_submit, .accept, .reject {
@@ -400,7 +395,6 @@
 
     #page_input {
         position: relative;
-        z-index: 3;
         background-color: rgb(var(--main-bg));
         color: white;
         padding: 8px 14px;
@@ -414,7 +408,6 @@
 
     #page_input {
         position: relative;
-        z-index: 3;
         box-shadow: 0 0 0 2px rgb(var(--accent));
     }                
     

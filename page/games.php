@@ -209,7 +209,6 @@
                     max-width: 400px;
                     padding: 20px;
                     border-radius: 10px;
-                    z-index: 3;
                 }
 
                 .tablet-title {
@@ -229,14 +228,12 @@
                     gap: 16px;
                     width: 100%;
                     max-width: 600px;
-                    z-index: 3;
                 }
 
                 a {
                     color: rgb(var(--accent));
                     text-decoration: none;
                     position: relative;
-                    z-index: 3;
                     margin-right: 2px;
                 }
 
@@ -271,7 +268,6 @@
                     transition: background-color 0.2s, transform 0.2s;
                     margin-right: 10px;
                     margin-top: 10px;
-                    z-index: 3;
                 }
 
                 .btn {
@@ -311,7 +307,6 @@
                     border-radius: 10px;
                     overflow: hidden;
                     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-                    z-index: 3;
                 }
 
                 .mainTR {
@@ -330,7 +325,6 @@
 
                 #page_input {
                     position: relative;
-                    z-index: 3;
                     background-color: rgb(var(--main-bg));
                     color: white;
                     padding: 8px 14px;
@@ -344,7 +338,6 @@
 
                 #page_input {
                     position: relative;
-                    z-index: 3;
                     box-shadow: 0 0 0 2px rgb(var(--accent));
                 }
 
@@ -393,7 +386,6 @@
                     bottom: 0;
 
                     background-color: rgba(0,0,0,0.3);
-                    z-index: 4;
 
                     display:flex;
                     justify-content: center;
@@ -408,7 +400,6 @@
                 
                 #game_conteiner {
                     position: relative;
-                    z-index: 3;
                     border-radius: 12px;
                     overflow: hidden;
                     transition: border 0.3s;
@@ -454,7 +445,6 @@
 
                 #game_submit {
                     position: relative;
-                    z-index: 3;
 
                     background-color: rgb(var(--accent));
                     color: rgb(var(--text));

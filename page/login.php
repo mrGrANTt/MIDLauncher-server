@@ -106,7 +106,6 @@ form {
     color: rgb(var(--text));
     outline: none;
     transition: background-color 0.2s, box-shadow 0.2s;
-    z-index: 2;
 }
 
 .inputer:focus {
@@ -128,7 +127,6 @@ form {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
-    z-index: 2;
 }
 
 .submit-btn:hover {
@@ -150,7 +148,6 @@ form {
     background-color: rgb(var(--panel-bg));
     color: rgb(var(--text));
     transition: background-color 0.2s;
-    z-index: 3;
 }
 
 .a-log:hover,
@@ -162,6 +159,5 @@ form {
 .a-reg.unselect {
     opacity: 0.5;
     pointer-events: none;
-    z-index: 3;
 }
 </style>

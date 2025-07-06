@@ -117,7 +117,6 @@
                     text-align: center;
                     color: rgb(var(--accent));
                     font-size: 18px;
-                    z-index: 3;
                     transition: transform 0.2s;
                 }
 
@@ -134,7 +133,6 @@
                     border-radius: 10px;
                     overflow: hidden;
                     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-                    z-index: 3;
                 }
 
                 .mainTR {
@@ -159,10 +157,6 @@
 
                 p {
                     display: inline-block;
-                }
-
-                .footer {
-                    z-index: 5;
                 }
 
                 .unselectable {

@@ -49,7 +49,6 @@
 
 .text {
     position: relative;
-    z-index: 2;
 }
 
 .text>a {

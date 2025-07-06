@@ -23,7 +23,6 @@
         text-decoration: none;
         transition: transform 0.2s, box-shadow 0.3s;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        z-index: 2;
     }
 
     .download_btn:hover {

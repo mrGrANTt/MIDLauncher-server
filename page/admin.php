@@ -128,7 +128,6 @@
             outline: none;
             box-shadow: 0 0 0 2px transparent;
             transition: box-shadow 0.2s;
-            z-index: 3;
         }
 
         #search:focus {
@@ -146,7 +145,6 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            z-index: 3;
         }
 
         .default_text {
@@ -164,7 +162,6 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            z-index: 3;
         }
 
         .edit_form .info {
@@ -190,7 +187,6 @@
             border-radius: 6px;
             border: none;
             outline: none;
-            z-index: 3;
         }
 
         .buttons {
@@ -228,7 +224,6 @@
         a {
             color: rgb(var(--accent));
             text-decoration: none;
-            z-index: 3;
         }
 
         a:hover {

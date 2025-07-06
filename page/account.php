@@ -112,7 +112,6 @@
                     padding-top: 0px;
                     border-radius: 10px;
                     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-                    z-index: 3;
                 }
 
                 .pass-form,
@@ -151,7 +150,6 @@
                     color: rgb(var(--text));
                     outline: none;
                     transition: background-color 0.2s, box-shadow 0.2s;
-                    z-index: 3;
                 }
 
                 .inputer:focus {
@@ -167,7 +165,6 @@
                     font-weight: bold;
                     cursor: pointer;
                     transition: background-color 0.2s, transform 0.2s;
-                    z-index: 3;
                     color: rgb(var(--text));
                 }
 
@@ -197,7 +194,6 @@
                 a {
                     color: rgb(var(--accent));
                     text-decoration: none;
-                    z-index: 3;
                 }
 
                 a:hover {
