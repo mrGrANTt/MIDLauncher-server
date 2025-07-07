@@ -72,7 +72,6 @@
     align-items: center;
     min-height: calc(100vh - 100px);
     padding: 40px 20px;
-    background-color: rgb(var(--main-bg));
 }
 
 form {

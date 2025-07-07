@@ -14,8 +14,11 @@
 
 </head>
 <body>
+    <div id="particles-js"></div>
+
+    <script src="particlesjs/particles.js"></script>
+
     <?php
-        include_once('page/base.html');
         session_start();
         include_once('page/includes/database.php');
         connect();
