@@ -39,7 +39,7 @@
                         '.resultCheck($result, 3).'
                         <input type="url" name="original_url" class="game_input game_original_url" placeholder="Url to original game" '.tryToValue('original_url').' />
                         '.resultCheck($result, 4).'
-                        <span>Game\'s files(<a href="?page=guide&guide=uploadgame">More info</a>):</span>
+                        <span>Game\'s files(<a href="?guide=uploadgame">More info</a>):</span>
                         <input type="file" name="game" class="game_input game_icon" />
                         '.resultCheck($result, 5).'
                         <span>Game\'s icon(4x3 image)</span>
