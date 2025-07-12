@@ -76,7 +76,7 @@
                     echo $err.'<br />';
                     exit;
                 } else {
-                    $filename = 'download/'.$_GET['id'].'.zip'; //форматы сжатия?
+                    $filename = 'download/'.$_GET['id'].'.zip';
                     if(file_exists($filename)) {
                         unlink($filename);
                     }

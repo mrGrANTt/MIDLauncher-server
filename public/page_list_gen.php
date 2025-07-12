@@ -6,7 +6,7 @@
     
     $type = isset($_GET['page']) ? 
         ($_GET['page'] == 'suggest' ? 'suggest' : 'games')
-         : 'games'; // (?page=games | ?page=suggest | ?page=suggest&closed) + count=<num> + value=<serch>
+         : 'games';
 
 
     function genWHERE($type) {

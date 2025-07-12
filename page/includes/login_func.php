@@ -35,7 +35,7 @@ function register($name, $email, $pas) {
     global $link;
 
     $ins = $link->prepare("INSERT into `users`(`name`, `email`, `pass`, `role`) values (?, ?, ?, 'user');");
-    $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ?;"); // 1';DELETE from `users` WHERE name = '123
+    $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ?;");
     $ins->bind_param('sss', $name, $email, $pas);
     $sel->bind_param('s', $name);
 

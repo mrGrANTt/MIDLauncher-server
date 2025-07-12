@@ -1,6 +1,6 @@
 <?php
     global $mainUrl;
-    $mainUrl = "http://localhost/GameServer/";
+    $mainUrl = "http://localhost/";
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -26,7 +26,7 @@
 
     <header class="head"> 
         <div class="head-inner">
-            <a href="/GameServer" class="logo">
+            <a href="/" class="logo">
                 <img src="img/logo/title_logo.png" alt="Logo">
             </a>
 
@@ -41,7 +41,7 @@
             <nav class="nav-links">
                 <?php
                     if(isset($_SESSION['name'])) {
-                        echo '<a href="?page=account">Account</a>';
+                        echo '<a href="?page=account">Accaunt</a>';
                         echo '<a href="?page=suggest">Suggest</a>';
                         $adm = checkRole('admin');
                         $mod = checkRole('moderator');

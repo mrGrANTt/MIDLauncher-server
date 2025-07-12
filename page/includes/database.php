@@ -4,7 +4,7 @@ function connect(
     $host='localhost',
     $user='MIDLauncher',
     $pass='XbD%VO3NM#1a',
-    $dbname='MDLDatabase'
+    $dbname='MIDLDatabase'
 ) {
     global $link;
     $link = mysqli_connect($host, $user, $pass);
@@ -47,11 +47,10 @@ function generate_tablet() {
             `description` varchar(255) NOT NULL,
             `url` varchar(255),
             FOREIGN KEY (`sender_id`) REFERENCES `users`(`id`)
-        );' // файл будет сохранятся по id
+        );'
     ];
 
     foreach($crs as $cr) {
-        //echo $cr.'<br />';
         mysqli_query($link, $cr);
         $ex = mysqli_error($link);
         if ($ex) {

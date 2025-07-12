@@ -101,7 +101,7 @@
                         ?>
                     </table>
                     <script>
-                        hide(document.getElementById('title-games'), document.getElementById('tablet-games'), false, ' Sended Suggest');
+                        hide(document.getElementById('title-games'), document.getElementById('tablet-games'), false, ' Added game');
                     </script>
                 <?php 
             } else {
