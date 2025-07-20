@@ -57,7 +57,7 @@
                     border.style.border = \'2px solid \' + color.value;
                 </script>
             ';
-            echo '<div class="space" />';
+            echo '<div class="space"> </div>';
 
         } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) {
             if (isset($_GET['remove'])) {
@@ -128,7 +128,7 @@
                             <a class="back" href="?page=games">← Back to list</a>
                         </div>';
                         
-                        echo '<div class="space" />';
+                        echo '<div class="space"></div>';
                     ?>
                         <div id="remove_menu">
                             <div class="menu_elements">
@@ -391,7 +391,6 @@
                     justify-content: center;
                     flex-direction: column;
                     align-items: center;
-
                 }
 
                 .menu_elements {

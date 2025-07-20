@@ -74,7 +74,7 @@
                                     </form>
                                 </div>';
                                 
-                                echo '<div class="space" />
+                                echo '<div class="space"></div>
                             ';
                         } else {
                             echo '

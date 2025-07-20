@@ -100,7 +100,7 @@
 
             include_once('page/includes/accaunt_info.php');
             getInfo($id, ($role == 'admin' || $role == 'moderator'));
-            echo '<div class="space" />';
+            echo '<div class="space"></div>';
         }
     ?>
     </main>

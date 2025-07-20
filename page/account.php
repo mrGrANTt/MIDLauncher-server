@@ -90,7 +90,7 @@
         <?php
             include_once('page/includes/accaunt_info.php');
             getInfo($_SESSION['id'], checkRole(['admin', 'moderator']));
-            echo '<div class="space" />';
+            echo '<div class="space"></div>';
         ?>
             </main>
             <style>
