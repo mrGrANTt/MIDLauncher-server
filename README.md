@@ -41,7 +41,7 @@ Before it you can check website `http://<ip-addres>`. You will see "Apache2 Defa
 ## PHP
 ### Install php and moduls
 ```bash
-sudo apt install php libapache2-mod-php php-mysql
+sudo apt install php libapache2-mod-php php-mysql php-zip
 sudo systemctl restart apache2
 ```
 
@@ -152,7 +152,7 @@ sudo git clone -b main https://github.com/mrGrANTt/MIDLauncher-server midl
 
 ### Grant Apache access to files
 ```bash
-sudo chown -R $USER:$USER /var/www/midl
+sudo chown -R www-data:www-data /var/www/midl
 sudo chmod -R 755 /var/www/midl
 ```
 
@@ -183,8 +183,6 @@ For our example? it will be:
 </VirtualHost>
 ```
 
-<br />
-
 ### Enable site
 ```bash
 sudo a2ensite midl.conf
@@ -194,37 +192,70 @@ sudo systemctl restart apache2
 If you have problems with the site, check `/var/log/apache2/error.log`.
 
 
+### Configure database in php
+1. Open `page/includes/database.php`(use nano on other util)
+```bash
+sudo nano var/www/midl/page/includes/database.php
+```
+You will see code:
+```php
+<?php
 
-<br />
-<br />
-<br />
+function connect(
+    $host='localhost',
+    $user='MIDLauncher',
+    $pass='XbD%VO3NM#1a',
+    $dbname='MIDLDatabase'
+) {
+    global $link;
+    $link = mysqli_connect($host, $user, $pass);
+<...>
+```
+2. If you remember, we save `database name`, `username` and `user's password`. use them to set `dbname`, `$user` and `$pass`.
+Example:
+```php
+<?php
 
+function connect(
+    $host='localhost',
+    $user='<username>',
+    $pass='<user's password>',
+    $dbname='<database name>'
+) {
+    global $link;
+    $link = mysqli_connect($host, $user, $pass);
+<...>
+```
+3. Save file(in Nano: `Ctrl + X`, `Y` and Enter)
+4. Restart site
+```bash
+sudo systemctl restart apache2
+```
 
+### Configure `php.ini`
+1. Find file:
+```bash
+php --ini | grep "php.ini"
+```
+You will see somethink like 
+```
+Configuration File (php.ini) Path: /etc/php/8.3/cli
+Loaded Configuration File:         /etc/php/8.3/cli/php.ini
+```
 
+2. Open `php.ini` using "Loaded Configuration File" path
+```bash
+sudo nano /etc/php/8.3/cli/php.ini
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### php.ini
+3. In opened file edit these 3 parameters
 ```ini
 upload_max_filesize=300M
 post_max_size=310M
 extension=zip
+```
+4. Save file(in Nano: `Ctrl + X`, `Y` and Enter)
+5. Restart site
+```bash
+sudo systemctl restart apache2
 ```
