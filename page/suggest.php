@@ -38,11 +38,11 @@
                         $arr = mysqli_fetch_array($res);
                         
                         if($arr) {
-                            $id = htmlspecialchars(trim($arr['id']));
+                            $id = $arr['id'];
                             $name = htmlspecialchars(trim($arr['name']));
                             $url = htmlspecialchars(trim($arr['url']));
                             $description = htmlspecialchars(trim($arr['description']));
-                            $accept = htmlspecialchars(trim($arr['accept']));
+                            $accept = $arr['accept'];
                             $unsver = htmlspecialchars(trim($arr['unsver']));
                             $senderName = htmlspecialchars(trim($arr['sender_name']));
 
@@ -184,14 +184,14 @@
 
             $arr = mysqli_fetch_array($res);
 
-            if($arr && $senderName == $_SESSION['name']) {
+            if($arr && $arr['sender_name'] == $_SESSION['name']) {
 
 
-                $id = htmlspecialchars(trim($arr['id']));
+                $id = $arr['id'];
                 $name = htmlspecialchars(trim($arr['name']));
                 $url = htmlspecialchars(trim($arr['url']));
                 $description = htmlspecialchars(trim($arr['description']));
-                $accept = htmlspecialchars(trim($arr['accept']));
+                $accept = $arr['accept'];
                 $unsver = htmlspecialchars(trim($arr['unsver']));
                 $senderName = htmlspecialchars(trim($arr['sender_name']));
 
