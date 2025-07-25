@@ -63,7 +63,7 @@ main> * {
     transition: transform 0.2s;
 }
 
-img:hover {
+.logo img:hover {
     transform: scale(1.1);
 }
 
