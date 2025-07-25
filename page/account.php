@@ -47,9 +47,9 @@
                             exit;
                         }
                         
-                        $name = $arr['name'];
-                        $email = $arr['email'];
-                        $role = $arr['role'];
+                        $name = htmlspecialchars(trim($arr['name']));
+                        $email = htmlspecialchars(trim($arr['email']));
+                        $role = htmlspecialchars(trim($arr['role']));
 
 
                         echo '

@@ -23,7 +23,6 @@
             readfile($file);
 
             echo '<p class="text">If installing don\'t started, try to reload page.</p>';
-            exit;
         } else {
             echo '<p class="text">Can\'t find file, contact the administration.</p>';
         }

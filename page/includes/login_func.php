@@ -1,9 +1,9 @@
 <?php
 
 function register($name, $email, $pas) {
-    $name = trim(htmlspecialchars($name));
-    $email = trim(htmlspecialchars($email));
-    $pas = trim(htmlspecialchars($pas));
+    $name = trim($name);
+    $email = trim($email);
+    $pas = trim($pas);
 
     $passl = strlen($pas);
     $pas = md5($pas);
@@ -81,8 +81,8 @@ function register($name, $email, $pas) {
 }
 
 function login($name, $pas) {
-    $name = trim(htmlspecialchars($name));
-    $pas = trim(htmlspecialchars($pas));
+    $name = trim($name);
+    $pas = trim($pas);
 
     $passl = strlen($pas);
     $pas = md5($pas);
@@ -129,9 +129,9 @@ function login($name, $pas) {
 }
 
 function chengePassword($lastPass, $newPass, $newPass2) {
-    $lastPass = trim(htmlspecialchars($lastPass)); 
-    $newPass = trim(htmlspecialchars($newPass));
-    $newPass2 = trim(htmlspecialchars($newPass2));
+    $lastPass = trim($lastPass); 
+    $newPass = trim($newPass);
+    $newPass2 = trim($newPass2);
 
     if($newPass != $newPass2) {
         return '<p style="color: rgb(var(--bad));">New passwords must compare...</p>';
@@ -191,8 +191,8 @@ function chengePassword($lastPass, $newPass, $newPass2) {
 }
 
 function chengeEmail($email, $pass) {
-    $email = trim(htmlspecialchars($email)); 
-    $pass = trim(htmlspecialchars($pass));
+    $email = trim($email); 
+    $pass = trim($pass);
 
     $emaill = strlen($email);
 

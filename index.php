@@ -1,4 +1,6 @@
 <?php
+    error_reporting(0);
+
     global $mainUrl;
     $mainUrl = "http://localhost/";
 ?>

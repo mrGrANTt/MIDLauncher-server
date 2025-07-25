@@ -1,10 +1,10 @@
 <?php 
     function compare($name, $autor, $entry, $desc, $url) {
-        $name = trim(htmlspecialchars($name));
-        $autor = trim(htmlspecialchars($autor)); 
-        $entry = trim(htmlspecialchars($entry)); 
-        $desc = trim(htmlspecialchars($desc)); 
-        $url = trim(htmlspecialchars($url));
+        $name = trim($name);
+        $autor = trim($autor); 
+        $entry = trim($entry); 
+        $desc = trim($desc); 
+        $url = trim($url);
         $date = date('Y-m-d');
 
         $inputErr = [];
@@ -66,11 +66,11 @@
         $id = $arr['id'];
         
         $json = '{'."\n".
-        '   "name": "'.$name.'",'."\n".
-        '   "description": "'.$desc.'",'."\n".
-        '   "path": "./'.$name.'/game'.substr($entry, 1).'",'."\n".
-        '   "autor": "'.$autor.'",'."\n".
-        '   "url": "'.$url.'"'."\n".
+        '   "name": "'.str_replace('"','\\"',$name).'",'."\n".
+        '   "description": "'.str_replace('"','\\"',$desc).'",'."\n".
+        '   "path": "./'.str_replace('"','\\"',$name).'/game'.substr(str_replace('"','\\"',$entry), 1).'",'."\n".
+        '   "autor": "'.str_replace('"','\\"',$autor).'",'."\n".
+        '   "url": "'.str_replace('"','\\"',$url).'"'."\n".
         '}'."\n".'';
 
         $zip = new ZipArchive();

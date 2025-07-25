@@ -42,10 +42,10 @@
                 exit;
             }
             
-            $id = $arr['id'];
-            $name = $arr['name'];
-            $email = $arr['email'];
-            $role = $arr['role'];
+            $id = htmlspecialchars(trim($arr['id']));
+            $name = htmlspecialchars(trim($arr['name']));
+            $email = htmlspecialchars(trim($arr['email']));
+            $role = htmlspecialchars(trim($arr['role']));
 
             if(isset($_POST['save']) && $name != $_SESSION['name']) {
                 $role = $_POST['role'];

@@ -11,7 +11,7 @@
         echo '<main class="games">';
         if(isset($_GET['newgame'])) {
             $result = '';
-            if(isset($_POST['newgame'])) {
+            if(isset($_POST['newgame'])) { 
                 include_once('page/includes/game_compare.php');
                 $result = compare($_POST['name'], $_POST['author'], $_POST['entry'], $_POST['description'], $_POST['original_url']);
                 if($result !== false && is_numeric($result)) {
@@ -110,16 +110,16 @@
                 if($arr) {
 
                     echo '
-                        <h4 class="tablet-title">'.$arr['name'].'</h4>
+                        <h4 class="tablet-title">'.htmlspecialchars(trim($arr['name'])).'</h4>
                         <div class="content">
                             <table class="contentTable">
                                 <tr>
                                     <td>
-                                        <p class="description" >'.$arr['description'].'</p>
-                                        <p class="senderbox" > Sender: <a class="sender" href="?page=admin&user='.$arr['sender_name'].'">'.$arr['sender_name'].'</a></p>
+                                        <p class="description" >'.htmlspecialchars(trim($arr['description'])).'</p>
+                                        <p class="senderbox" > Sender: <a class="sender" href="?page=admin&user='.htmlspecialchars(trim($arr['sender_name'])).'">'.htmlspecialchars(trim($arr['sender_name'])).'</a></p>
                                     </td>
                                     <td class="buttonsMenu">
-                                        <a class="btn original" href="'.$arr['url'].'" >Original game page</a>
+                                        <a class="btn original" href="'.htmlspecialchars(trim($arr['url'])).'" >Original game page</a>
                                         <a class="btn download" href="?page=download&id='.$arr['id'].'">Download game</a>
                                         <a class="btn remove" id="openacc">Remove</a>
                                     </td>

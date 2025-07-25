@@ -1,7 +1,7 @@
 <?php 
     function unsver($uns, $id, $chose) {
-        $uns = trim(htmlspecialchars($uns));
-        $id = trim(htmlspecialchars($id));
+        $uns = trim($uns);
+        $id = trim($id);
         $chose = $chose == 1 ? 1 : 0;
 
         if(!is_numeric($id)) {
@@ -37,9 +37,9 @@
 
 
     function compare($name, $desc, $url) {
-        $name = trim(htmlspecialchars($name));
-        $desc = trim(htmlspecialchars($desc)); 
-        $url = trim(htmlspecialchars($url));
+        $name = trim($name);
+        $desc = trim($desc); 
+        $url = trim($url);
         $date = date('Y-m-d');        
         
         $inputErr = [];

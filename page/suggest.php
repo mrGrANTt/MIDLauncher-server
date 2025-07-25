@@ -36,37 +36,45 @@
                         }
 
                         $arr = mysqli_fetch_array($res);
-
-                        if ($unsverRes === true && isset($_POST['accept'])) {
-                            ?>
-                                <form id="form" action="?page=games&newgame" method="post">
-                                    <?php
-                                        echo '
-                                            <input type="hidden" name="name" value="'.htmlentities($arr['name']).'">
-                                            <input type="hidden" name="description" value="'.htmlentities($arr['description']).'">
-                                            <input type="hidden" name="original_url" value="'.htmlentities($arr['url']).'">
-                                        ';
-                                    ?>
-                                </form>
-                                <script type="text/javascript">
-                                    document.getElementById('form').submit();
-                                </script>
-                            <?php
-                            exit;
-                        }
-
+                        
                         if($arr) {
+                            $id = htmlspecialchars(trim($arr['id']));
+                            $name = htmlspecialchars(trim($arr['name']));
+                            $url = htmlspecialchars(trim($arr['url']));
+                            $description = htmlspecialchars(trim($arr['description']));
+                            $accept = htmlspecialchars(trim($arr['accept']));
+                            $unsver = htmlspecialchars(trim($arr['unsver']));
+                            $senderName = htmlspecialchars(trim($arr['sender_name']));
+
+                            if ($unsverRes === true && isset($_POST['accept'])) {
+                                ?>
+                                    <form id="form" action="?page=games&newgame" method="post">
+                                        <?php
+                                            echo '
+                                                <input type="hidden" name="name" value="'.$name.'">
+                                                <input type="hidden" name="description" value="'.$description.'">
+                                                <input type="hidden" name="original_url" value="'.$url.'">
+                                            ';
+                                        ?>
+                                    </form>
+                                    <script type="text/javascript">
+                                        document.getElementById('form').submit();
+                                    </script>
+                                <?php
+                                exit;
+                            }
+                        
                             echo '
-                                <h4 class="tablet-title">'.$arr['name'].'</h4>
+                                <h4 class="tablet-title">'.$name.'</h4>
                                 <div class="content">
                                     <form method="POST" class="unsver-form">
-                                        <p class="description" >'.$arr['description'].'</p>
-                                        <p class="url" >Url: <a href="'.$arr['url'].'">'.$arr['url'].'</a></p>
-                                        <p class="senderbox" > Sender: <a class="sender" href="?page=admin&user='.$arr['sender_name'].'">'.$arr['sender_name'].'</a></p>
-                                        <input name="id" hidden value="'.$arr['id'].'" />
-                                        <textarea placeholder="Write a response to the suggest" class="unsver '.(is_null($arr['accept']) ? '" name="unsver">' : ($arr['accept'] == 1 ? 'accepted' : 'rejected').'" name="unsver" readonly>'.$arr['unsver']).'</textarea>
+                                        <p class="description" >'.$description.'</p>
+                                        <p class="url" >Url: <a href="'.$url.'">'.$url.'</a></p>
+                                        <p class="senderbox" > Sender: <a class="sender" href="?page=admin&user='.$senderName.'">'.$senderName.'</a></p>
+                                        <input name="id" hidden value="'.$id.'" />
+                                        <textarea placeholder="Write a response to the suggest" class="unsver '.(is_null($accept) ? '" name="unsver">' : ($accept == 1 ? 'accepted' : 'rejected').'" name="unsver" readonly>'.$unsver).'</textarea>
                                         '.(is_bool($unsverRes) ? '' : $unsverRes).'
-                                        '.(is_null($arr['accept']) ? '
+                                        '.(is_null($accept) ? '
                                             <button type="sybmit" class="accept" name="accept">Accept</button>
                                             <button type="sybmit" class="reject" name="reject">Reject</button>
                                         ' : '').'
@@ -176,17 +184,27 @@
 
             $arr = mysqli_fetch_array($res);
 
-            if($arr && $arr['sender_name'] == $_SESSION['name']) {
+            if($arr && $senderName == $_SESSION['name']) {
+
+
+                $id = htmlspecialchars(trim($arr['id']));
+                $name = htmlspecialchars(trim($arr['name']));
+                $url = htmlspecialchars(trim($arr['url']));
+                $description = htmlspecialchars(trim($arr['description']));
+                $accept = htmlspecialchars(trim($arr['accept']));
+                $unsver = htmlspecialchars(trim($arr['unsver']));
+                $senderName = htmlspecialchars(trim($arr['sender_name']));
+
                 echo '
-                    <h4 class="tablet-title">'.$arr['name'].'</h4>
+                    <h4 class="tablet-title">'.$name.'</h4>
                     <div class="content">
-                        <p class="description" >'.$arr['description'].'</p>
-                        <p class="url" >Url: <a href="'.$arr['url'].'">'.$arr['url'].'</a></p>
-                        <p class="senderbox" > Sender: <span class="sender" >'.$arr['sender_name'].'</span></p>
-                        <input name="id" hidden value="'.$arr['id'].'" />
-                        <p class="unsverall" >Unsver: <textarea class="unsver '.(is_null($arr['accept']) ? 
+                        <p class="description" >'.$description.'</p>
+                        <p class="url" >Url: <a href="'.$url.'">'.$url.'</a></p>
+                        <p class="senderbox" > Sender: <span class="sender" >'.$senderName.'</span></p>
+                        <input name="id" hidden value="'.$id.'" />
+                        <p class="unsverall" >Unsver: <textarea class="unsver '.(is_null($accept) ? 
                             '" placeholder="Pleace wait for a response" name="unsver" readonly>' :
-                            ($arr['accept'] == 1 ? 'accepted' : 'rejected').'" name="unsver" readonly>'.$arr['unsver']).'</textarea>
+                            ($accept == 1 ? 'accepted' : 'rejected').'" name="unsver" readonly>'.$unsver).'</textarea>
                         </p>
                         <a class="back" href="?page=account">← Back to account</a>
                     </div>';

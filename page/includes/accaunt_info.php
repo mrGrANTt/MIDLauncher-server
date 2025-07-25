@@ -41,11 +41,11 @@
                             echo '
                             <tr class="tabletTR"> 
                                 <td class="tabletValue">
-                                    '.$v[0].'
+                                    '.htmlspecialchars(trim($v[0])).'
                                 </td> 
                                 <td class="tabletValue">
-                                    <a href="?page=suggest&id='.$v[1].'">
-                                        '.$v[2].'
+                                    <a href="?page=suggest&id='.htmlspecialchars(trim($v[1])).'">
+                                        '.htmlspecialchars(trim($v[2])).'
                                     </a>
                                 </td> 
                             </tr>';
@@ -89,11 +89,11 @@
                             echo '
                             <tr class="tabletTR"> 
                                 <td class="tabletValue">
-                                    '.$v[0].'
+                                    '.htmlspecialchars(trim($v[0])).'
                                 </td> 
                                 <td class="tabletValue">
-                                    <a href="?page=games&id='.$v[1].'">
-                                        '.$v[2].'
+                                    <a href="?page=games&id='.htmlspecialchars(trim($v[1])).'">
+                                        '.htmlspecialchars(trim($v[2])).'
                                     </a>
                                 </td> 
                             </tr>';
