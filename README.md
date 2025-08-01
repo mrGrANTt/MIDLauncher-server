@@ -193,6 +193,23 @@ If you have problems with the site, check `/var/log/apache2/error.log`.
 
 
 ### Configure database in php
+1. Open `index.php`(use nano on other util)
+```bash
+sudo nano var/www/midl/page/includes/database.php
+```
+You will see code:
+```php
+<?php
+    error_reporting(0);
+    global $mainUrl;
+    $mainUrl = "http://localhost/";
+?>
+<!DOCTYPE html>
+<...>
+```
+2. Replace `mainUrl` with your site's url
+
+### Configure database in php
 1. Open `page/includes/database.php`(use nano on other util)
 ```bash
 sudo nano var/www/midl/page/includes/database.php

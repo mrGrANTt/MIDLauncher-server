@@ -1,10 +1,9 @@
 <?php
     include_once('page/includes/login_func.php');
 ?>    
-
 <main class="login">
     <?php
-        if(isset($_GET['reg'])) {
+        if(isset($_GET['reg'])) { // меню регистрации
             ?>
                 <div class="upper">
                     <a href="?page=login" class="a-log">Login</a>
@@ -21,7 +20,7 @@
                     </form>
                 </div>
             <?php
-            if(isset($_POST['reg'])) {
+            if(isset($_POST['reg'])) { // обработка регистрации
                 if($_POST['pas1'] == $_POST['pas2']) {
                     if (register($_POST['name'],$_POST['email'],$_POST['pas1'])) {
                         ?>
@@ -36,7 +35,7 @@
                     <?php
                 }
             }
-        } else {
+        } else { // меню входа в аккаунт
             ?>
                 <div class="upper">
                     <a href="?page=login" class="a-log unselect">Login</a>
@@ -51,7 +50,7 @@
                     </form>
                 </div>
             <?php
-            if(isset($_POST['log'])) {
+            if(isset($_POST['log'])) { // обработка входа в аккаунт
                 if (login($_POST['name'], $_POST['pass'])) {
                     ?>
                         <script>
@@ -63,7 +62,6 @@
         }
     ?>
 </main>
-
 <style>
 .login {
     display: flex;
@@ -73,7 +71,6 @@
     min-height: calc(100vh - 100px);
     padding: 40px 20px;
 }
-
 form {
     display: flex;
     flex-direction: column;
@@ -84,7 +81,6 @@ form {
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
-
 .log-form,
 .reg-form {
     width: 100%;
@@ -95,7 +91,6 @@ form {
     gap: 15px;
     padding: 10px;
 }
-
 .inputer {
     padding: 10px 14px;
     font-size: 16px;
@@ -106,17 +101,14 @@ form {
     outline: none;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
-
 .inputer:focus {
     background-color: rgb(var(--input-focus-bg));
     box-shadow: 0 0 0 2px rgb(var(--accent));
 }
-
 .sub-conteiner {
     display: flex;
     justify-content: flex-end;
 }
-
 .submit-btn {
     background-color: rgb(var(--accent));
     border: none;
@@ -127,18 +119,15 @@ form {
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 }
-
 .submit-btn:hover {
     background-color: rgb(var(--accent-hover));
     transform: scale(1.03);
 }
-
 .upper {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
-
 .a-log,
 .a-reg {
     text-decoration: none;
@@ -148,12 +137,10 @@ form {
     color: rgb(var(--text));
     transition: background-color 0.2s;
 }
-
 .a-log:hover,
 .a-reg:hover {
     background-color: rgb(var(--hover-bg));
 }
-
 .a-log.unselect,
 .a-reg.unselect {
     opacity: 0.5;

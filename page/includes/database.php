@@ -1,14 +1,12 @@
 <?php
-
 function connect(
     $host='localhost',
     $user='MIDLauncher',
     $pass='XbD%VO3NM#1a',
     $dbname='MIDLDatabase'
-) {
+) { // подключение базы данных
     global $link;
     $link = mysqli_connect($host, $user, $pass);
-
     if (!$link) {
         die('Conecction error: ' . mysqli_connect_error());
     }
@@ -17,8 +15,7 @@ function connect(
     }
     generate_tablet();
 }
-
-function generate_tablet() {
+function generate_tablet() { // генерация таблиц
     global $link;
     $crs = [
         'CREATE TABLE IF NOT EXISTS `users` (
@@ -49,7 +46,6 @@ function generate_tablet() {
             FOREIGN KEY (`sender_id`) REFERENCES `users`(`id`)
         );'
     ];
-
     foreach($crs as $cr) {
         mysqli_query($link, $cr);
         $ex = mysqli_error($link);
@@ -58,8 +54,7 @@ function generate_tablet() {
         }
     }
 }
-
-function checkRole($role) {
+function checkRole($role) { // прооверка роли пользователя
     if (isset($_SESSION['name'])) {
         if(is_array($role)) {
             foreach($role as $r) {
@@ -69,17 +64,14 @@ function checkRole($role) {
             }
         } else {
             global $link;
-
             $sel = $link->prepare("SELECT `id` FROM `users` WHERE `name`= ? AND `role` = ? LIMIT 1;");
             $sel->bind_param('ss', $_SESSION['name'], $role);
-
             try {
                 $sel->execute();
             } catch(mysqli_sql_exception $ex) {
                 echo '<p style="color: rgb(var(--bad));">Some exception... Code: '.$ex->getCode().'. Pleace tell Administrator!</p>';
                 return false;
             }
-
             $res = $sel->get_result();
             $err = $sel->error;
             if($err != "") {
@@ -88,9 +80,7 @@ function checkRole($role) {
                     <p style="color: rgb(var(--bad));">Some think wrong... Call Administrator!</p>
                 <?php
             }
-
             $arr = mysqli_fetch_array($res);
-            
             if($arr) {
                 return true;
             }

@@ -1,6 +1,5 @@
 <?php
     error_reporting(0);
-
     global $mainUrl;
     $mainUrl = "http://localhost/";
 ?>
@@ -10,28 +9,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Game Server</title>
-    
     <link href="colors.css" rel="stylesheet" />
     <link href="index.css" rel="stylesheet" />
-
 </head>
 <body>
     <div id="particles-js"></div>
-
     <script src="particlesjs/particles.js"></script>
-
     <?php
+    // Подлючаем базу данных
         session_start();
         include_once('page/includes/database.php');
         connect();
     ?>
-
+    <!-- Шапка сайта !-->
     <header class="head"> 
         <div class="head-inner">
             <a href="/" class="logo">
                 <img src="img/logo/title_logo.png" alt="Logo">
             </a>
-
             <div class="hello">
                 <?php
                     if(isset($_SESSION['name'])) {
@@ -39,9 +34,9 @@
                     }
                 ?>
             </div>
-
             <nav class="nav-links">
                 <?php
+                // определяем доступные меню
                     if(isset($_SESSION['name'])) {
                         echo '<a href="?page=account">Accaunt</a>';
                         echo '<a href="?page=suggest">Suggest</a>';
@@ -60,9 +55,8 @@
             </nav>
         </div>
     </header>
-
     <?php
-
+        //переход к выброной меню
         if(isset($_GET['page'])) {
             switch ($_GET['page']) {
                 case "admin": include_once("page/admin.php"); break;
@@ -79,7 +73,7 @@
             include_once('page/main.php');
         }
     ?>
-
+    <!-- Подвал сайта !-->
     <footer class="footer">
         <div class="footer-content">
             <div class="contacts">
@@ -92,7 +86,5 @@
             </div>
         </div>
     </footer>
-
 </body>
-
 </html>

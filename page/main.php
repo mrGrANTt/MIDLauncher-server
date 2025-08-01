@@ -3,7 +3,7 @@
         <img src="img/launcher/1.jpg" class="gallery-image active">
         <img src="img/launcher/2.jpg" class="gallery-image">
     </div>
-
+    <!-- Информация о лаунчере !-->
     <div class="launcher-info">
         <h1 class="launcher-title">MIDLauncher</h1>
         <p class="launcher-description">
@@ -12,27 +12,23 @@
         <a href="?page=download" class="download_btn">Download</a>
     </div>
 </main>
-
 <script>
+    // Просмотр изображенгий 
     const images = document.querySelectorAll('.gallery-image');
     const gallery = document.getElementById('gallery');
     let currentIndex = 0;
-
     function showImage(index) {
         images.forEach((img, i) => {
             img.classList.toggle('active', i === index);
         });
     }
-
     function chengeImage() {
         currentIndex = (currentIndex + 1) % images.length;
         showImage(currentIndex);
     }
-
     gallery.addEventListener('click', chengeImage);
     setInterval(chengeImage, 5000);
 </script>
-
 <style>
     .main-content {
         padding-top: 100px;
@@ -44,7 +40,6 @@
         min-height: calc(100vh - 240px);
         color: rgb(var(--text));
     }
-
     .launcher-gallery {
         position: relative;
         width: 320px;
@@ -54,7 +49,6 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         cursor: pointer;
     }
-
     .gallery-image {
         position: absolute;
         width: 100%;
@@ -63,11 +57,9 @@
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
     }
-
     .gallery-image.active {
         opacity: 1;
     }
-
     .launcher-info {
         max-width: 500px;
         background-color: rgb(var(--panel-bg));
@@ -78,19 +70,16 @@
         flex-direction: column;
         gap: 20px;
     }
-
     .launcher-title {
         font-size: 36px;
         font-weight: bold;
         margin: 0;
     }
-
     .launcher-description {
         font-size: 16px;
         color: rgb(var(--mini-text));
         line-height: 1.5;
     }
-
     .download_btn {
         align-self: flex-start;
         padding: 14px 28px;
@@ -104,7 +93,6 @@
         transition: transform 0.2s, box-shadow 0.3s;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
-
     .download_btn:hover {
         transform: scale(1.05);
         box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);

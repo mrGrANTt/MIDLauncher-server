@@ -1,17 +1,16 @@
 <?php 
+    // генерация ошибок
     function resultCheck($res, $index) {
         return ($res != '' && isset($res[$index]) && $res[$index] != '-') ? $res[$index] : '';
     }
     function tryToValue($param) {
         return (isset($_POST[$param])) ? ' value="'.$_POST[$param].'" ' : '';
     }
-
-
-    if(checkRole(['admin', 'moderator'])) {
+    if(checkRole(['admin', 'moderator'])) { // проверка роли
         echo '<main class="games">';
-        if(isset($_GET['newgame'])) {
+        if(isset($_GET['newgame'])) { // создание новой игры
             $result = '';
-            if(isset($_POST['newgame'])) { 
+            if(isset($_POST['newgame'])) { // обработка добавления новой игры
                 include_once('page/includes/game_compare.php');
                 $result = compare($_POST['name'], $_POST['author'], $_POST['entry'], $_POST['description'], $_POST['original_url']);
                 if($result !== false && is_numeric($result)) {
@@ -22,7 +21,6 @@
                     <?php
                 }
             }
-
             echo '
                 <form method="POST" enctype="multipart/form-data">
                     <div class="content" id="game_conteiner">
@@ -58,15 +56,12 @@
                 </script>
             ';
             echo '<div class="space"> </div>';
-
-        } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) {
+        } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) { // проверка наличия выбранной игры
             if (isset($_GET['remove'])) {
                 global $link;
-
                 $del = $link->prepare('DELETE FROM `games` WHERE `id` = ?;');
                 $del->bind_param('i', $_GET['id']);
                 $err = "";
-
                 try {
                     $del->execute();
                 } catch(mysqli_sql_exception $ex) {
@@ -80,7 +75,6 @@
                     if(file_exists($filename)) {
                         unlink($filename);
                     }
-
                     ?>
                         <script>
                             window.location="<?php global $mainUrl; echo $mainUrl.'?page=games'; ?>";
@@ -88,13 +82,11 @@
                         </main>
                     <?php
                 }
-            } else {
-
+            } else { // вывод информации об игре
                 global $link;
                 $sel = $link->prepare('SELECT `games`.`id`, `games`.`name`, `games`.`description`, `games`.`url`, `users`.`name` as `sender_name` FROM `games` INNER JOIN `users` ON `games`.`sender_id` = `users`.`id` WHERE `games`.`id` = ?;');
                 $sel->bind_param('i', $_GET['id']);
                 $err = "";
-
                 try {
                     $sel->execute();
                     $res = $sel->get_result(); 
@@ -105,10 +97,8 @@
                     echo $err.'<br />';
                     exit;
                 }
-
                 $arr = mysqli_fetch_array($res);
                 if($arr) {
-
                     echo '
                         <h4 class="tablet-title">'.htmlspecialchars(trim($arr['name'])).'</h4>
                         <div class="content">
@@ -127,7 +117,6 @@
                             </table>
                             <a class="back" href="?page=games">← Back to list</a>
                         </div>';
-                        
                         echo '<div class="space"></div>';
                     ?>
                         <div id="remove_menu">
@@ -141,10 +130,8 @@
                             let open = document.getElementById('openacc');
                             let close = document.getElementById('no');
                             let menu = document.getElementById('remove_menu')
-
                             open.onclick = () => {openMenu(true)};
                             close.onclick = () => {openMenu(false)};
-
                             function openMenu(value) {
                                 console.log(menu.style.display + '  ' + value);
                                 menu.style.display = value == true ? '' : 'none';
@@ -159,15 +146,13 @@
                     ';
                 }
             }
-        } else {
+        } else { // вывод списка игр
             ?>
                 <a href="?page=games&newgame" class="create_new">Create new game</a>
                 <h4 class="tablet-title">Games</h4>
                 <div id="result"></div>
-
                 <script>
                     const xhttp = new XMLHttpRequest();
-
                     function loadFn(num) {
                         xhttp.onload = function() {
                             document.getElementById("result").innerHTML = this.responseText;
@@ -176,13 +161,11 @@
                         xhttp.send();
                     }
                     loadFn(0);
-                    
                     document.getElementById('result').addEventListener('wheel', (ev) => {
                         let el = document.getElementById('page_input'); 
                         let deleta = (ev.deltaY > 0 ? 1 : -1);
                         let newValue = Number(el.value) + deleta;
                         newValue = newValue > 0 ? newValue : 1;
-
                         if (el.value != newValue) {
                             el.value = newValue;
                             loadFn(el.value -1);
@@ -191,8 +174,7 @@
                 </script>
                 <input id="page_input" type="number" min="1" value="1" oninput="loadFn(document.getElementById('page_input').value - 1)" />
             <?php
-        }
-        ?>
+        }?>
             </main>
             <style>
                 main.games {
@@ -203,21 +185,18 @@
                     gap: 10px;
                     color: rgb(var(--text));
                 }
-
                 #result {
                     width: 100%;
                     max-width: 400px;
                     padding: 20px;
                     border-radius: 10px;
                 }
-
                 .tablet-title {
                     margin: 20px 0 10px;
                     text-align: center;
                     color: rgb(var(--text));
                     font-size: 24px;
                 }
-
                 .content, .menu_elements {
                     background-color: rgb(var(--panel-bg));
                     padding: 25px 30px;
@@ -229,19 +208,16 @@
                     width: 100%;
                     max-width: 600px;
                 }
-
                 a {
                     color: rgb(var(--accent));
                     text-decoration: none;
                     position: relative;
                     margin-right: 2px;
                 }
-
                 a:hover {
                     cursor: pointer;
                     text-decoration: underline;
                 }
-
                 .senderbox {
                     margin: 0;
                     color: rgb(var(--mini-text));
@@ -249,16 +225,13 @@
                     display: inline-block;
                     width: fit-content;
                 }
-
                 .content .sender {
                     color: rgb(var(--accent));
                     text-decoration: none;
                 }
-
                 .content .sender:hover {
                     text-decoration: underline;
                 }
-
                 .btn, .back {
                     display: inline-block;
                     text-decoration: none;
@@ -269,36 +242,30 @@
                     margin-right: 10px;
                     margin-top: 10px;
                 }
-
                 .btn {
                     background-color: rgb(var(--hover-bg));
                     color: rgb(var(--text));
                     text-align: center;
                 }
-
                 .buttonsMenu {
                     text-align: right;
                     max-width: 100px;
                     min-width: 40px;
                 }
-
                 .back {
                     background-color: transparent;
                     color: rgb(var(--mini-text));
                     padding: 10px 0;
                     width: 100px;
                 }
-
                 .btn:hover {
                     transform: scale(1.03);
                     background-color: rgb(var(--accent-hover));
                     text-decoration: none;
                 }
-
                 .back:hover {
                     text-decoration: underline;
                 }
-
                 .table {
                     width: 100%;
                     max-width: 600px;
@@ -308,21 +275,17 @@
                     overflow: hidden;
                     box-shadow: 0 4px 16px rgba(0,0,0,0.3);
                 }
-
                 .mainTR {
                     background-color: rgb(var(--main-bg));
                 }
-
                 .tabletTitle, .tabletValue {
                     padding: 12px 16px;
                     text-align: left;
                     border-bottom: 1px solid rgba(255,255,255,0.05);
                 }
-
                 .tabletTR:last-child td {
                     border-bottom: none;
                 }
-
                 #page_input {
                     position: relative;
                     background-color: rgb(var(--main-bg));
@@ -335,27 +298,22 @@
                     transition: box-shadow 0.2s;
                     max-width: 80px;
                 }
-
                 #page_input {
                     position: relative;
                     box-shadow: 0 0 0 2px rgb(var(--accent));
                 }
-
                 .description {
                     color: rgb(var(--text));
                     line-height: 1.6;
                     margin: 0;
                 }
-
                 .select {
                     color: rgb(var(--text));
                 }
-
                 .select:hover {
                     text-decoration: none;
                     cursor:default;
                 }
-
                 .create_new {
                     padding: 10px;
                     border-radius: 12px;
@@ -363,53 +321,43 @@
                     color: rgb(var(--text));
                     transition: background-color 0.2s, transform 0.2s;
                 }
-
                 .create_new:hover {
                     background-color: rgb(var(--accent-hover));
                     transform: scale(1.03);
                     text-decoration: none;
                 }
-
                 .remove {
                     background-color: rgb(var(--bad));
                 }
-
                 .remove:hover {
                     background-color: rgb(var(--bad-hover));
                 }
-
                 #remove_menu {
                     position: absolute;
                     left: 0;
                     right: 0;
                     top: 0;
                     bottom: 0;
-
                     background-color: rgba(0,0,0,0.3);
-
                     display:flex;
                     justify-content: center;
                     flex-direction: column;
                     align-items: center;
                 }
-
                 .menu_elements {
                     max-width: 400px;
                 }
-                
                 #game_conteiner {
                     position: relative;
                     border-radius: 12px;
                     overflow: hidden;
                     transition: border 0.3s;
                 }
-
                 .colorTitle {
                     display: flex;
                     gap: 12px;
                     align-items: center;
                 }
-
                 .game_input {
                     box-sizing: border-box;
                     background-color: rgb(var(--main-bg));
@@ -423,12 +371,10 @@
                     transition: box-shadow 0.2s, transform 0.2s;
                     width: 100%;
                 }
-
                 .game_input:focus {
                     box-shadow: 0 0 0 2px rgb(var(--accent));
                     transform: scale(1.02);
                 }
-
                 .game_color {
                     width: 50px;
                     padding: 0;
@@ -436,15 +382,12 @@
                     border-radius: 8px;
                     cursor: pointer;
                 }
-
                 .game_description {
                     resize: vertical;
                     min-height: 100px;
                 }
-
                 #game_submit {
                     position: relative;
-
                     background-color: rgb(var(--accent));
                     color: rgb(var(--text));
                     border: none;
@@ -457,23 +400,19 @@
                     transition: background-color 0.2s, transform 0.2s;
                     align-self: flex-end;
                 }
-
                 #game_submit:hover {
                     background-color: rgb(var(--accent-hover));
                     transform: scale(1.05);
                 }
-
                 .err {
                     color: rgb(var(--bad));
                     margin: -10px;
                     margin-bottom: 10px;
                     text-align: center;
                 }       
-                
                 .space {
                     padding-bottom: 120px;
                 }
-
             </style>
         <?php
     } else { 
